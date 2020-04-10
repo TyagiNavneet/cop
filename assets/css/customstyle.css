@@ -1,0 +1,355 @@
+/*css for dashboard page*/
+
+body{
+	background: #f5f5f5;
+	font-size : 14px;
+	font-family: 'Lato', sans-serif;
+}
+.primary-bg {
+	background: #072c47;
+}
+.secondry-bg {
+	background: #3d7bb1;
+}
+.dark-bg {
+	background: #48545f;
+	color: #fff;
+}
+.f30-bold{
+	font-weight: bold;
+	font-size : 30px;
+}
+.page-title{
+	font-size: 24px;
+}
+nav {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.sidenav li.active,.sidenav li>a:hover{
+	background-color: transparent;
+}	
+.sidbar-navbar {
+	margin-top: 40px !important;
+}
+.sidenav li>a{
+	font-size: 20px;
+}
+.sidenav .collapsible li{
+	margin-bottom: 10px;
+}
+.sidenav .sidenav-header{
+	padding: 15px 30px;
+	border-bottom: 1px solid #fff;
+}
+.navbar.navbar-expand{
+	padding: 23px 15px;
+	background-color: #fff;
+	min-height: 98px;
+}
+.common-layout{
+	width: 100%;
+	height: auto;
+}
+.flud-container{
+	width: 100%;
+	padding:0 15px;
+}
+.is-folded .sidenav .sidenav-header{
+	height:98px;
+	display:flex;
+	align-items: center;
+	padding: 19px 10px;
+}
+
+.is-folded .sidenav{
+  width: 80px;
+}
+.is-folded .sidenav-header span{
+	display: none;
+}
+.is-folded .logo img{
+	display: none;
+}
+.is-folded .logo{
+	background: url(../../assets/images/folded-logo.png);
+	background-size: 100%;
+	height: 60px;
+	width: 60px;
+	background-repeat: no-repeat;
+}
+.is-folded .sidenav li>a{
+	visibility: hidden;
+}
+.logo img{
+	height: auto;
+}
+.sidenav-header span{
+	font-size: 1.5rem;
+	margin-left: 1rem;
+	text-transform: uppercase;
+}
+.sidenav,.content,.sidenav-header span{
+     transition: all .4s ease;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    -ms-transition: all .4s ease;
+}
+.sidbar-navbar li{
+	position: relative;
+}
+.sidenav li>a{
+	padding:0 30px 0 55px;
+	color: #ffffff;
+}
+.sidbar-navbar li:before{
+	content: "";
+	width: 12px;
+	height: 12px;
+	top: 15px;
+	left: 30px;
+	background-color: #ffffff;
+	position: absolute;
+
+}
+.sidbar-navbar li:hover:before , .sidbar-navbar li.active:before{
+	background-color: #06b4d1;
+}
+.sidbar-navbar li:hover a , .sidbar-navbar li.active a{
+	color: #06b4d1;
+}
+.is-folded .content{
+	padding-left: 80px;
+}
+.sidenav.sidenav-fixed{
+	border-right: 0px;
+}
+#sidebar{
+	background: #072c47;
+	box-shadow : none !important;
+}
+.navbar .navbar-icon i{
+	font-size: 24px;
+	color:  #072c47;
+}
+.navbar a.welcome{
+	font-size: 18px;
+	margin-right: 20px;
+	color: #072c47;
+}
+.navbar a.welcome:hover{
+	color:  #06b4d1;
+}
+.navbar .navbar-icon:hover {
+    background-color: #072c47;
+}
+.navbar .navbar-icon:hover i{
+	color:  #06b4d1;
+}
+/*interactions page css*/
+
+.interaction-listing{
+    padding: 40px;
+    background: #fff;
+    margin-top:50px;
+}
+.interaction-listing table.table-striped tbody tr:nth-of-type(odd){
+    background: #fafafa;
+}
+.interaction-listing table.table-striped tbody tr td , .interaction-listing .table-striped thead tr th{
+    font-size: 15px;
+    color: #000;
+    font-weight: 300;
+    text-align: center;
+}
+.interaction-listing table.table-striped thead{
+   border-bottom: 2px solid #fff;
+}
+.interaction-listing table.table td{
+    border-top:none;
+}
+.interaction-listing table.table thead th{
+    background: #e5e5e5;
+    font-weight: bold;
+}
+.management-option button.btn.btn-primary{
+	background: #06b4d1;
+	color: #fff;
+	padding: 0;
+	font-size: 16px;
+	font-weight: 300;
+	width: 240px;
+	border-radius: 0;
+	height: 38px;
+    line-height: 38px;
+}
+.management-option button.btn.btn-primary span{
+	width: 35px;
+	height: 38px;
+	background: #072c47;
+	float: left;
+	position: relative;
+}
+.management-option button.btn.btn-primary span i{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	font-size: 22px;
+	transform: translate(-50% , -50%);
+}
+.management-option button.btn.btn-primary span:after{
+	content: '';
+	position: absolute;
+	left: 100%;
+	border-top: 19px solid transparent;
+    border-bottom: 19px solid transparent;
+    border-left: 15px solid #072c47;
+    top: 0px;
+}
+.management-option.interaction-filter button.btn.btn-primary{
+	width: 159px;
+}
+.management-option .quick-btn{
+	margin-right: 0rem;
+}
+
+.actions{
+	text-align: center;
+}
+.actions a{
+	display: inline-block;
+	margin-right: .5rem;
+}
+.custom-icon{
+	width: 20px;
+	height: 20px;
+	position: relative;
+}
+.custom-icon:before{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    background-image: url('../images/roles-user-sprite.png');
+    background-repeat: no-repeat;
+}
+.add-icon:before{
+    line-height: 20px;
+    font-size: 34px;
+     color: white;
+    font-style: normal;
+    content: "+";
+    background-image: none;
+}
+.delete-icon:before{
+	 background-position: -8px -11px;
+}
+
+.edit-icon:before{
+	 background-position: -47px -12px; 
+}
+.key-icon:before{
+	 background-position: -87px -11px; 
+}
+.user-icon:before{
+	 background-position: -128px -11px; 
+}
+.user-icon:before{
+	 background-position: -128px -11px; 
+}
+.bl_del-icon:before{
+	 background-position: -167px -12px; 
+}
+.update-icon:before{
+	 background-position: -207px -12px; 
+}
+.check-icon:before{
+	 background-position: -207px -12px; 
+}
+footer{
+	background: #fff;
+	padding: 15px;
+	color: #072c47;
+	margin-top: 50px;
+}
+
+@media (min-width: 768px) {
+	.content {
+	  padding-left: 265px;
+	}
+}
+@media (max-width: 1199px){
+
+	.management-option button.btn.btn-primary.api-key, .management-option button.btn.btn-primary.ioskey{
+		width:240px;
+		font-size: 16px;
+	}
+	.management-option button.btn.btn-primary.ioskey{
+		float: right;
+	}
+	.interaction-listing{
+		padding: 20px;
+	}
+
+	.intro-table tr td{
+		min-width:120px;
+	}
+	.intro-table tr td:first-child{
+		min-width:auto;
+	}
+	.actions{
+		min-width: 200px!important;
+	}
+}
+
+@media (max-width: 991px){
+	.management-option button.btn.btn-primary.api-key, .management-option button.btn.btn-primary.ioskey{
+		width:210px;
+		font-size: 14px;
+	}
+	.interaction-filter .col-lg-4{
+		margin-bottom: 20px;
+	}
+	.del-btn{
+		float: right;
+	}
+	.management-option button.btn.btn-primary{
+		width: 205px;
+	}
+}
+
+@media (max-width: 767px){
+	.management-option button.btn.btn-primary.api-key, .management-option button.btn.btn-primary.ioskey{
+		width:240px;
+		font-size: 16px;
+	}
+	.navbar .navbar-icon{
+		height: 35px;
+    	width: 35px;
+	}
+	.page-title {
+	    display: none;
+	}
+	.admin-header-icons li{
+		margin-bottom:1rem;
+	}
+	footer.text-right{
+		text-align: center !important;
+	}
+	.navbar a.welcome{
+		font-size: 16px;
+	}
+}
+@media (max-width: 575px){
+	.management-option button.btn.btn-primary.api-key{
+		float: right;
+	}
+	.management-pg button.btn.btn-primary{
+		margin-left:0 !important;
+		margin-right:0 !important;
+	}
+
+}
+
