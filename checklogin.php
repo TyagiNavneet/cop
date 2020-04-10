@@ -1,5 +1,18 @@
 <?php 
-$hm = authenticate($_POST['txtemail'], $_POST['txtpassword']); 
+
+// Intilizing form value into variable.
+$user_name = $_POST['exampleInputEmail1'];
+$user_pass = $_POST['exampleInputPassword1'];
+echo "<pre>";
+print_r($_POST);
+print_r($_SESSION);
+die();
+//$hm = authenticate($_POST['txtemail'], $_POST['txtpassword']); 
+// Checking if value is not empty then calling authenticate function.
+if(!empty($user_pass) && (!empty($user_pass))) {
+$hm = authenticate($user_name, $user_pass); }
+
+
 function authenticate($user, $pass)
 {
 	$user = str_replace(";","",$user);
@@ -231,4 +244,3 @@ function get_client_ip() {
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
-?>
