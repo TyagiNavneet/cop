@@ -19,7 +19,10 @@
 </head>
 
 <body>
+	<?php
 
+
+	?>
 	<div class="container center_div login-page">
 		<div class="row">
 			<div class="col-md-6 col-lg-5  white-color blue_bg">

@@ -1,67 +1,77 @@
 <?PHP
-	function getUserIpAddr(){
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-			//ip from share internet
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-			//ip pass from proxy
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}else{
-			$ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return $ip;
-	}	
+function getUserIpAddr()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
 
-	// Function to work out 
-	function calculateMinutes(DateInterval $intpass){
-		$dayscalc = $intpass->format('%a');
-		return ($dayscalc * 24 * 60) + ($intpass->h * 60) + $intpass->i;
-	}
-	
-	function base64_url_encode($input) {
-		return strtr(base64_encode($input), '+/=', '-_,');
-	}
-	
-	function base64_url_decode($input) {
-		return base64_decode(strtr($input, '-_,', '+/='));
-	}
-	
-	function mencrypt($message){
-			$OPEN_SSL_METHOD = 'aes-256-cbc';
-			$BASE64_ENCRYPTION_KEY = 'G1fM0aXhguJ5tVaqVMSWDHB+Jk6QFd99FgkfAcEgwjI';		
-			$BASE64_IV = 'xIkaSwduZFjtP4SI4mIyOg';
-			$encrypted = openssl_encrypt($message, $OPEN_SSL_METHOD, base64_decode($BASE64_ENCRYPTION_KEY), 0, base64_decode($BASE64_IV));
-			$base64_encrypted = base64_url_encode($encrypted);
-			return $base64_encrypted;
-		}
-	 
-	function mdecrypt($base64_encrypted){
-			$OPEN_SSL_METHOD = 'aes-256-cbc';
-			$BASE64_ENCRYPTION_KEY = 'G1fM0aXhguJ5tVaqVMSWDHB+Jk6QFd99FgkfAcEgwjI';		
-			$BASE64_IV = 'xIkaSwduZFjtP4SI4mIyOg';
-			$encrypted = base64_url_decode($base64_encrypted);
-			$decrypted = openssl_decrypt($encrypted, $OPEN_SSL_METHOD, base64_decode($BASE64_ENCRYPTION_KEY), 0, base64_decode($BASE64_IV));
-			return $decrypted;
-		}	
-		
-	
-	function datacleanse($strpass){
-		$strpass = str_replace("'", "''", $strpass);	
-		return $strpass;
-	}
-	function dataclear($strpass){
-		$strpass = str_replace("'", "", $strpass);	
-		return $strpass;
-	}	
-	
-	function redirect($url) {
-		ob_start();
-		header('Location: '.$url);
-		ob_end_flush();
-		die();
-	}	
+// Function to work out 
+function calculateMinutes(DateInterval $intpass)
+{
+    $dayscalc = $intpass->format('%a');
+    return ($dayscalc * 24 * 60) + ($intpass->h * 60) + $intpass->i;
+}
 
-function validateDateTime($dateTime) {
+function base64_url_encode($input)
+{
+    return strtr(base64_encode($input), '+/=', '-_,');
+}
+
+function base64_url_decode($input)
+{
+    return base64_decode(strtr($input, '-_,', '+/='));
+}
+
+function mencrypt($message)
+{
+    $OPEN_SSL_METHOD = 'aes-256-cbc';
+    $BASE64_ENCRYPTION_KEY = 'G1fM0aXhguJ5tVaqVMSWDHB+Jk6QFd99FgkfAcEgwjI';
+    $BASE64_IV = 'xIkaSwduZFjtP4SI4mIyOg';
+    $encrypted = openssl_encrypt($message, $OPEN_SSL_METHOD, base64_decode($BASE64_ENCRYPTION_KEY), 0, base64_decode($BASE64_IV));
+    $base64_encrypted = base64_url_encode($encrypted);
+    return $base64_encrypted;
+}
+
+function mdecrypt($base64_encrypted)
+{
+    $OPEN_SSL_METHOD = 'aes-256-cbc';
+    $BASE64_ENCRYPTION_KEY = 'G1fM0aXhguJ5tVaqVMSWDHB+Jk6QFd99FgkfAcEgwjI';
+    $BASE64_IV = 'xIkaSwduZFjtP4SI4mIyOg';
+    $encrypted = base64_url_decode($base64_encrypted);
+    $decrypted = openssl_decrypt($encrypted, $OPEN_SSL_METHOD, base64_decode($BASE64_ENCRYPTION_KEY), 0, base64_decode($BASE64_IV));
+    return $decrypted;
+}
+
+
+function datacleanse($strpass)
+{
+    $strpass = str_replace("'", "''", $strpass);
+    return $strpass;
+}
+function dataclear($strpass)
+{
+    $strpass = str_replace("'", "", $strpass);
+    return $strpass;
+}
+
+function redirect($url)
+{
+    ob_start();
+    header('Location: ' . $url);
+    ob_end_flush();
+    die();
+}
+
+function validateDateTime($dateTime)
+{
     $format = 'Y-m-d H:i:s';
     if (is_string($dateTime)) {
         $dt = DateTime::createFromFormat($format, $dateTime);
@@ -73,7 +83,8 @@ function validateDateTime($dateTime) {
     return false;
 }
 
-function validateDate($date) {
+function validateDate($date)
+{
     $format = 'Y-m-d';
     if (is_string($date)) {
         $d = DateTime::createFromFormat($format, $date);
@@ -85,12 +96,13 @@ function validateDate($date) {
     return false;
 }
 
-function mkdirPath($target) {
+function mkdirPath($target)
+{
     $wrapper = null;
 
     // strip the protocol
     if (isStream($target)) {
-        list( $wrapper, $target ) = explode('://', $target, 2);
+        list($wrapper, $target) = explode('://', $target, 2);
     }
 
     // from php.net/mkdir user contributed notes
@@ -125,7 +137,7 @@ function mkdirPath($target) {
     if (@mkdir($target, $dir_perms, true)) {
 
         // If a umask is set that modifies $dir_perms, we'll have to re-set the $dir_perms correctly with chmod()
-        if ($dir_perms != ( $dir_perms & ~umask() )) {
+        if ($dir_perms != ($dir_perms & ~umask())) {
             $folder_parts = explode('/', substr($target, strlen($target_parent) + 1));
             for ($i = 1; $i <= count($folder_parts); $i++) {
                 @chmod($target_parent . '/' . implode('/', array_slice($folder_parts, 0, $i)), $dir_perms);
@@ -138,7 +150,8 @@ function mkdirPath($target) {
     return false;
 }
 
-function isStream($path) {
+function isStream($path)
+{
     $scheme_separator = strpos($path, '://');
 
     if (false === $scheme_separator) {
@@ -156,7 +169,8 @@ function isStream($path) {
  * 
  * Checks if the email address belongs to an accepted domain
  */
-function validateByDomain($emailAddress, $acceptedDomails) {
+function validateByDomain($emailAddress, $acceptedDomails)
+{
     // Get the domain from the email address
     $domain = getDomain(trim($emailAddress));
 
@@ -173,7 +187,8 @@ function validateByDomain($emailAddress, $acceptedDomails) {
  * 
  * Gets the domain from an email address
  */
-function getDomain($emailAddress) {
+function getDomain($emailAddress)
+{
     // Check if a valid email address was submitted
     if (!isEmail($emailAddress)) {
         return false;
@@ -193,7 +208,8 @@ function getDomain($emailAddress) {
  * 
  * Checks if the submitted value is a valid email address
  */
-function isEmail($emailAddress) {
+function isEmail($emailAddress)
+{
     // Filter submitted value to see if it's a proper email address
     if (filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
         return true;
@@ -206,7 +222,8 @@ function isEmail($emailAddress) {
  * Check email provider
  * 
  */
-function isGmailProvider($emailAddress) {
+function isGmailProvider($emailAddress)
+{
     $domain = getDomain($emailAddress);
     if ($domain == 'gmail.com') {
         return true;
@@ -214,7 +231,8 @@ function isGmailProvider($emailAddress) {
     return false;
 }
 
-function arrayParamsToUrlString($arrayParams) {
+function arrayParamsToUrlString($arrayParams)
+{
     $ctr = 0;
     $urlStringParams = '';
     foreach ($arrayParams as $key => $value) {
@@ -228,7 +246,8 @@ function arrayParamsToUrlString($arrayParams) {
     return $urlStringParams;
 }
 
-function deleteDir($dirPath) {
+function deleteDir($dirPath)
+{
     if (is_dir($dirPath)) {
         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
             $dirPath .= '/';
@@ -244,4 +263,9 @@ function deleteDir($dirPath) {
         return rmdir($dirPath);
     }
     return false;
+}
+// Checking user Session data
+function checkUser($data)
+{
+    if ($data) return true;
 }
