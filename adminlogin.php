@@ -37,29 +37,29 @@
 						<img src="assets/images/login_icon.png" alt="">
 					</div>
 					<div class="form">
-						<form method="post" action="checklogin.php">
+						<form method="POST" action="checklogin.php">
 							<div class="form-group">
-								<label for="exampleInputEmail1" class="bmd-label-floating">Enter Your Email</label>
-								<input type="text" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1" required>
+								<label for="username" class="bmd-label-floating">Enter Your Email</label>
+								<input type="text" class="form-control" name="username" id="username" required>
 							</div>
 							<div class="form-group">
-								<label for="exampleInputPassword1" class="bmd-label-floating">Enter Your Password</label>
-								<input type="password" class="form-control" name="exampleInputPassword1" id="exampleInputPassword1" required>
+								<label for="userpassword" class="bmd-label-floating">Enter Your Password</label>
+								<input type="password" class="form-control" name="userpassword" id="userpassword" required>
 							</div>
-							<div class="form-group text-right">
-								<a href="mailto:paul@cavendishpark.co.uk">Forgot Password ?</a>
-							</div>
+							<!--<div class="form-group text-right">
+							<a href="mailto:paul@cavendishpark.co.uk">Forgot Password ?</a>
+						</div> -->
 							<button type="submit" class="btn btn-raised btn-primary btn-block">Login</button>
 						</form>
 					</div>
-					<?php
-					if (!empty($_GET['loginerror'])) {
+					<?PHP if (!empty($_GET['loginerror'])) {
 						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="background-color: #f2dede;border-color: #ebcccc;color: #a94442;">
-  			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    		<span aria-hidden="true">&times;</span>
-  			</button>' . $_GET['loginerror'] . '</div>';
-					}
-					?>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>'
+							. $_GET['loginerror'] . '</div>';
+					}  ?>
+
 				</div>
 			</div>
 		</div>

@@ -244,5 +244,4 @@ function deleteDir($dirPath) {
         return rmdir($dirPath);
     }
     return false;
-}	
-?>
+}
