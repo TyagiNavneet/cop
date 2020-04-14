@@ -21,25 +21,17 @@
 <body>
 	<?php
 	session_start();
+
 	if ($_SESSION['82j2ud2891166sid']) {
 		$username = $_SESSION['82j2ud2891166sdispname'];
-		include("db_connect.php");
 		include("functions.php");
-		$sql = "SELECT a.*,b.*,c.* FROM customers  a JOIN jobs b ON a.`cidno` = b.`cidno` JOIN invoices c ON b.`jobid` = c.`joblink`";
-		$result = mysqli_query($mysqllink, $sql);
-		if (mysqli_num_rows($result) > 0) {
-			while ($row = mysqli_fetch_assoc($result)) {
-				$jobs[] = $row;
-			}
-		}
+		$jobs = getDashbordData();
 	} else {
+		session_destroy();
 		header("location:adminlogin.php?loginerror=Invalid access.");
 		exit;
 	}
 	?>
-
-
-
 	<div class="common-layout is-default ">
 		<div id="sidebar" class="sidenav sidenav-fixed expand-md">
 			<div class="sidenav-header primary-bg nav-logo">
@@ -99,13 +91,23 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php for ($i = 0; $i < sizeof($jobs); $i++) { ?>
-									<td><?php echo $i + 1; ?></td>
+								<?php for ($i = 0; $i < sizeof($jobs); $i++) {
+									$cidno = $jobs[$i]['cidno'];
+									$jobid = $jobs[$i]['jobid']; ?>
+									<td nowrap>
+										<a href="viewjobs.php?jid=<?php echo $jobid; ?>">
+
+											<span class="icon icon-magnifying-glass"></span>
+										</a></td>
 									<td><?php echo $jobs[$i]['jobid']; ?></td>
 									<td nowrap><?php echo $jobs[$i]['dtcr']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['sitename']; ?></td>
+									<td nowrap>
+										<a href="viewcustomer.php?cid=<?php echo $cidno; ?>">
+											<?php echo $jobs[$i]['sitename']; ?></a></td>
 									<td nowrap><?php echo $jobs[$i]['cref']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['address1']; ?></td>
+									<td nowrap>
+										<?php echo $jobs[$i]['address1']; ?>
+									</td>
 									<td nowrap><?php echo $jobs[$i]['defect']; ?></td>
 									<td nowrap><?php echo $jobs[$i]['lastupdate']; ?></td>
 									<td nowrap><?php echo $jobs[$i]['lastnote']; ?></td>

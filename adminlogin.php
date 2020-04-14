@@ -5,23 +5,18 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 	<title>Cavendish Park - Residential Building Services</title>
-
 	<!-- Material Design for Bootstrap fonts and icons -->
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-
 	<!-- Material Design for Bootstrap CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 	<link href="assets/css/login.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 	<?php
-
-
+	include('functions.php');
 	?>
 	<div class="container center_div login-page">
 		<div class="row">
