@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,19 +11,19 @@
 
 	<!-- Styles -->
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+	<!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">-->
+	<link href="assets/css/font1.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
 	<link href="assets/css/material-bootstrap.min.css" rel="stylesheet">
 	<link href="assets/css/customstyle.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-
-
+	<!--<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">-->
+	<link rel="stylesheet" type="text/css" href="assets/css/jquerydatatbl.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 	<?php
 	session_start();
-
 	if ($_SESSION['82j2ud2891166sid']) {
 		$username = $_SESSION['82j2ud2891166sdispname'];
 		include("functions.php");
@@ -39,9 +41,9 @@
 				</div>
 			</div>
 			<ul class="collapsible collapsible-accordion sidbar-navbar">
-				<li class="active"><a href="#">Dashboard</a></li>
-				<li><a href="#">Jobs</a></li>
-				<li><a href="#">Invoices</a></li>
+				<li class="active"><a href="adminwelcome.php">Dashboard</a></li>
+				<li><a href="jobs.php">Jobs</a></li>
+				<li><a href="invoice.php">Invoices</a></li>
 			</ul>
 		</div>
 		<div class="content">
@@ -53,7 +55,7 @@
 						<a class="welcome" href="javascript:;">
 							Welcome! <?php echo $username; ?> <i class="fa fa-user" aria-hidden="true"></i>
 						</a>
-						<a class="navbar-icon waves-effect waves-light" href="javascript:;">
+						<a class="navbar-icon waves-effect waves-light" href="logout.php">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
 						</a>
 					</div>
@@ -61,64 +63,49 @@
 			</nav>
 			<div class="flud-container">
 				<div class="interaction-listing">
-					<div class="management-option management-pg row">
-						<div class="col-lg-6 text-center text-lg-left">
-							<button type="button" class="btn btn-primary group-btn mr-3 mb-4 "><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>ADD HOURS</button>
-							<button type="button" class="btn btn-primary schedule-btn mb-4 "><span><i class="fa fa-book" aria-hidden="true"></i></i></span>WORKS DIARY</button>
+					<div class="container-scroller">
+						<div class="container-fluid page-body-wrapper">
+							<div class="main-panel">
+								<div class="content-wrapper">
+									<div class="row">
+										<div class="col-md-4 stretch-card grid-margin">
+											<div class="card bg-gradient-danger card-img-holder text-white">
+												<div class="card-body">
+													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+													<h4 class="font-weight-normal mb-3">Customer<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+													</h4>
+													<h2 class="mb-5"><?php echo getCount('customers'); ?></h2>
+													<h6 class="card-text"></h6>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 stretch-card grid-margin">
+											<div class="card bg-gradient-info card-img-holder text-white">
+												<div class="card-body">
+													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+													<h4 class="font-weight-normal mb-3">Jobs<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+													</h4>
+													<h2 class="mb-5"><?php echo getCount('jobs');
+																		?></h2>
+													<h6 class="card-text"></h6>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 stretch-card grid-margin">
+											<div class="card bg-gradient-success card-img-holder text-white">
+												<div class="card-body">
+													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+													<h4 class="font-weight-normal mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
+													</h4>
+													<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
+													<h6 class="card-text"></h6>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-
-						<div class="col-lg-6 text-center text-lg-right">
-							<button type="button" class="btn btn-primary quick-btn mb-4 "><span><i class="fa fa-eye" aria-hidden="true"></i></span>VIEW RAMs</button>
-							<button type="button" class="btn btn-primary upload-btn mb-4 ml-3"><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>COMPLETE DATA</button>
-						</div>
-					</div>
-					<div class="table-responsive">
-						<table id="example">
-							<thead>
-								<tr>
-									<th style="white-space:nowrap;"> Sn. </th>
-									<th style="white-space:nowrap;">Job No.</th>
-									<th style="white-space:nowrap;">Date</th>
-									<th style="white-space:nowrap;">Site Name</th>
-									<th style="white-space:nowrap;">Ref/Task No.</th>
-									<th style="white-space:nowrap;">Site Address</th>
-									<th style="white-space:nowrap;">Defect</th>
-									<th style="white-space:nowrap;">Last Update</th>
-									<th style="white-space:nowrap;">Last Note</th>
-									<th style="white-space:nowrap;">Status</th>
-									<th style="white-space:nowrap;">Work Category</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<?php for ($i = 0; $i < sizeof($jobs); $i++) {
-									$cidno = $jobs[$i]['cidno'];
-									$jobid = $jobs[$i]['jobid']; ?>
-									<td nowrap>
-										<a href="viewjobs.php?jid=<?php echo $jobid; ?>">
-
-											<span class="icon icon-magnifying-glass"></span>
-										</a></td>
-									<td><?php echo $jobs[$i]['jobid']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['dtcr']; ?></td>
-									<td nowrap>
-										<a href="viewcustomer.php?cid=<?php echo $cidno; ?>">
-											<?php echo $jobs[$i]['sitename']; ?></a></td>
-									<td nowrap><?php echo $jobs[$i]['cref']; ?></td>
-									<td nowrap>
-										<?php echo $jobs[$i]['address1']; ?>
-									</td>
-									<td nowrap><?php echo $jobs[$i]['defect']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['lastupdate']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['lastnote']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['status']; ?></td>
-									<td nowrap><?php echo $jobs[$i]['workscat']; ?></td>
-
-
-									</tr>
-								<?php } ?>
-							</tbody>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -128,18 +115,10 @@
 		<a href="#"><img src="assets/images/cpark_newlogo.png"></a>
 		<p>Copyright © Cavendish Park 2020. All Rights reserved</p>
 	</footer>
-	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-	<script>
-		$(function() {
-			$("#example").dataTable();
-		})
-	</script>
 
-	<!--<script src="assets/js/vendor.js"></script>-->
+	<!--<script src="assets/js/vendor.js"></script>
 	<script src="assets/js/app.js"></script>
-	<script src="assets/js/material-bootstrap.min.js"></script>
-
+	<script src="assets/js/material-bootstrap.min.js"></script>-->
 	<script src="assets/js/custom.js"></script>
 
 </body>

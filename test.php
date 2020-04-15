@@ -1,0 +1,1 @@
+<script type="text/javascript" charset="utf8" src="assets/js/jquery.dataTables.min.js"> </script>

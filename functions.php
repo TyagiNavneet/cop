@@ -341,10 +341,12 @@ function checkUser($data)
 
     // Check 1 : Checking if username/password and ip is exist
     if ($username && $pass && $ip) {
+        logmsg('Check 1 : Checking if username/password and ip is exist');
         $countIP = getIpCount($ip);
 
         // Check 2 : for attempts
         if ($countIP > 20) {
+            logmsg(' Tried 20 time with same IP');
             header("location:adminlogin.php?loginerror=Your IP is Blocked.");
             exit;
         }
@@ -355,22 +357,36 @@ function checkUser($data)
 
         if ($user) {
             // Check 3 : If user exist in database then checking password also.
+            logmsg('Check 3 : If user exist in database then checking password also.');
             $sql = "SELECT * from swd_setup_users where pusername = '$username' and ppassword = '$pass'";
             // Using function to get mysql data.    
             $userdata = getResult($sql);
 
             if ($userdata) {
+                $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
+                if ($user[0]['login_attempts'] == 3 && strtotime(date("Y-m-d H:i:s")) < strtotime($cenvertedTime)) {
+                    //echo $user[0]['login_attempts'] . ' : ' . date("Y-m-d H:i:s") . ' : ' . $cenvertedTime;
+                    logmsg('Check  : For Login attempt 3 with incorrect password. Accoutn locked');
+                    $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
+                    $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
+                    mysqli_query($con, $sql);
+                    header("location:adminlogin.php?loginerror=Incorrect Password, " . $error_message);
+                    exit;
+                }
+
                 // Check 4 : Getting result if both variable is correct.
+                logmsg('Check 4 : Getting result if both variable is correct.');
                 $userid = $userdata[0]['id'];
                 $sql = "UPDATE swd_setup_users set login_attempts='0', last_login=NULL 
                 WHERE id = $userid ";
                 mysqli_query($con, $sql);
                 $sql = "SELECT * from swd_setup_users WHERE id = $userid ";
                 // Updating swd_setup_users table and return userdata based on id.
+                logmsg('Login Success');
                 return getResult($sql);
             } else {
                 // Check 5 : Checking login attempts and blocking users for 10 minutes.
-
+                logmsg('Line 387');
                 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
                 if ($user[0]['login_attempts'] == 3 && strtotime(date("Y-m-d H:i:s")) < strtotime($cenvertedTime)) {
                     $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
@@ -380,7 +396,8 @@ function checkUser($data)
                     exit;
                 }
                 // Updating details in swd_setup_users after 10 minutes if password is not correct.
-                $sql = "UPDATE swd_setup_users set login_attempts = login_attempts + 1 , last_login = now()
+                $dttime = date('Y-m-d H:i:s');
+                $sql = "UPDATE swd_setup_users set login_attempts = login_attempts + 1 , last_login = '" . $dttime . "'
                 WHERE pusername = '" . $username . "'";
                 mysqli_query($con, $sql);
                 $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
@@ -418,4 +435,23 @@ function getIpCount($ip)
     $result = mysqli_query($con, $sql);
     $count = mysqli_num_rows($result);
     return $count;
+}
+// Count of jobs.
+function getCount($param)
+{
+    $con = dbCon();
+    $sql = "SELECT * from " . $param . "";
+    $result = mysqli_query($con, $sql);
+    $count = mysqli_num_rows($result);
+    return $count;
+}
+
+function logmsg($msg)
+{
+    $file = 'logs/logs.txt';
+    if ($file) {
+        $d = date('Y-m-d H:i:s');
+        $message = $d . " : " . $msg . "\r\n";
+        file_put_contents($file, $message, FILE_APPEND);
+    }
 }
