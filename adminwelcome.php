@@ -11,7 +11,7 @@
 
 	<!-- Styles -->
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-	<!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">-->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 	<link href="assets/css/font1.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
 	<link href="assets/css/material-bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body style="overflow:hidden;" }>
 	<?php
 	session_start();
 	if ($_SESSION['82j2ud2891166sid']) {
@@ -61,65 +61,59 @@
 					</div>
 				</div>
 			</nav>
-			<div class="flud-container">
+			<!--<div class="flud-container">
 				<div class="interaction-listing">
-					<div class="container-scroller">
-						<div class="container-fluid page-body-wrapper">
-							<div class="main-panel">
-								<div class="content-wrapper">
-									<div class="row">
-										<div class="col-md-4 stretch-card grid-margin">
-											<div class="card bg-gradient-danger card-img-holder text-white">
-												<div class="card-body">
-													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-													<h4 class="font-weight-normal mb-3">Customer<i class="mdi mdi-chart-line mdi-24px float-right"></i>
-													</h4>
-													<h2 class="mb-5"><?php echo getCount('customers'); ?></h2>
-													<h6 class="card-text"></h6>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 stretch-card grid-margin">
-											<div class="card bg-gradient-info card-img-holder text-white">
-												<div class="card-body">
-													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-													<h4 class="font-weight-normal mb-3">Jobs<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-													</h4>
-													<h2 class="mb-5"><?php echo getCount('jobs');
-																		?></h2>
-													<h6 class="card-text"></h6>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 stretch-card grid-margin">
-											<div class="card bg-gradient-success card-img-holder text-white">
-												<div class="card-body">
-													<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-													<h4 class="font-weight-normal mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
-													</h4>
-													<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
-													<h6 class="card-text"></h6>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+					<div>
+						<div class="container-fluid page-body-wrapper"> 
+			<div class="main-panel">-->
+			<div class="content-wrapper">
+				<div class="row">
+					<div class="col-md-4 stretch-card grid-margin">
+						<div class="card bg-gradient-danger card-img-holder text-white">
+							<div class="card-body" style="cursor: pointer;" onclick="window.location='#';">
+								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+								<h4 class="font-weight-normal mb-3">Customer<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+								</h4>
+								<h2 class="mb-5"><?php echo getCount('customers'); ?></h2>
+								<h6 class="card-text"></h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 stretch-card grid-margin">
+						<div class="card bg-gradient-info card-img-holder text-white">
+							<div class="card-body" style="cursor: pointer;" onclick="window.location='jobs.php';">
+								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+								<h4 class="font-weight-normal mb-3">Total Jobs<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+								</h4>
+								<h2 class="mb-5"><?php echo getCount('jobs');
+													?></h2>
+								<h6 class="card-text"><?php echo "Completed Jobs : " . getJobStatus(1); ?> </h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 stretch-card grid-margin">
+						<div class="card bg-gradient-success card-img-holder text-white">
+							<div class="card-body" style="cursor: pointer;" onclick="window.location='invoice.php';">
+								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+								<h4 class="font-weight-normal mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
+								</h4>
+								<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
+								<h6 class="card-text">Total amount $ <?php echo getInvoiceTotal(); ?></h6>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<footer class="text-right">
-		<a href="#"><img src="assets/images/cpark_newlogo.png"></a>
-		<p>Copyright © Cavendish Park 2020. All Rights reserved</p>
-	</footer>
+		<-- </div> </div> </div> </div> </div>--> </div> <footer class="text-right">
+			<a href="#"><img src="assets/images/cpark_newlogo.png"></a>
+			<p>Copyright © Cavendish Park 2020. All Rights reserved</p>
+			</footer>
 
-	<!--<script src="assets/js/vendor.js"></script>
+			<!--<script src="assets/js/vendor.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/material-bootstrap.min.js"></script>-->
-	<script src="assets/js/custom.js"></script>
+			<script src="assets/js/custom.js"></script>
 
 </body>
 

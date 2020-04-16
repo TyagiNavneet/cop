@@ -25,6 +25,7 @@
         $username = $_SESSION['82j2ud2891166sdispname'];
         include("functions.php");
         $jobs = getDashbordData();
+        $jobdata = getJobsView();
     } else {
         session_destroy();
         header("location:adminlogin.php?loginerror=Invalid access.");
@@ -60,7 +61,7 @@
             </nav>
             <div class="flud-container">
                 <div class="interaction-listing">
-                    <div class="management-option management-pg row">
+                    <!--   <div class="management-option management-pg row">
                         <div class="col-lg-6 text-center text-lg-left">
                             <button type="button" class="btn btn-primary group-btn mr-3 mb-4 "><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>ADD HOURS</button>
                             <button type="button" class="btn btn-primary schedule-btn mb-4 "><span><i class="fa fa-book" aria-hidden="true"></i></i></span>WORKS DIARY</button>
@@ -70,50 +71,35 @@
                             <button type="button" class="btn btn-primary quick-btn mb-4 "><span><i class="fa fa-eye" aria-hidden="true"></i></span>VIEW RAMs</button>
                             <button type="button" class="btn btn-primary upload-btn mb-4 ml-3"><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>COMPLETE DATA</button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="table-responsive">
-                        <table id="example">
+                        <table id="jobTable">
                             <thead>
                                 <tr>
-                                    <th style="white-space:nowrap;"> Sn. </th>
-                                    <th style="white-space:nowrap;">Job No.</th>
-                                    <th style="white-space:nowrap;">Date</th>
-                                    <th style="white-space:nowrap;">Site Name</th>
-                                    <th style="white-space:nowrap;">Ref/Task No.</th>
+                                    <th style="white-space:nowrap;"> </th>
                                     <th style="white-space:nowrap;">Site Address</th>
-                                    <th style="white-space:nowrap;">Defect</th>
-                                    <th style="white-space:nowrap;">Last Update</th>
-                                    <th style="white-space:nowrap;">Last Note</th>
+                                    <th style="white-space:nowrap;">Job Number</th>
+                                    <th style="white-space:nowrap;">Task Number</th>
+                                    <th style="white-space:nowrap;">Job Raised Date</th>
                                     <th style="white-space:nowrap;">Status</th>
-                                    <th style="white-space:nowrap;">Work Category</th>
-
+                                    <th style="white-space:nowrap;">Last Note </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = 0; $i < sizeof($jobs); $i++) {
-                                    $cidno = $jobs[$i]['cidno'];
-                                    $jobid = $jobs[$i]['jobid']; ?>
+                                <?php for ($i = 0; $i < sizeof($jobdata); $i++) {
+                                    $jobid = $jobdata[$i]['jobid']; ?>
                                     <td nowrap>
                                         <a href="viewjobs.php?jid=<?php echo $jobid; ?>">
-
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a></td>
-                                    <td><?php echo $jobs[$i]['jobid']; ?></td>
-                                    <td nowrap><?php echo $jobs[$i]['dtcr']; ?></td>
                                     <td nowrap>
                                         <a href="viewcustomer.php?cid=<?php echo $cidno; ?>">
-                                            <?php echo $jobs[$i]['sitename']; ?></a></td>
-                                    <td nowrap><?php echo $jobs[$i]['cref']; ?></td>
-                                    <td nowrap>
-                                        <?php echo $jobs[$i]['address1']; ?>
-                                    </td>
-                                    <td nowrap><?php echo $jobs[$i]['defect']; ?></td>
-                                    <td nowrap><?php echo $jobs[$i]['lastupdate']; ?></td>
-                                    <td nowrap><?php echo $jobs[$i]['lastnote']; ?></td>
-                                    <td nowrap><?php echo $jobs[$i]['status']; ?></td>
-                                    <td nowrap><?php echo $jobs[$i]['workscat']; ?></td>
-
-
+                                            <?php echo $jobdata[$i]['siteaddress']; ?></a></td>
+                                    <td nowrap><?php echo $jobdata[$i]['jobid']; ?></td>
+                                    <td nowrap><?php echo $jobdata[$i]['worksid']; ?></td>
+                                    <td nowrap><?php echo $jobdata[$i]['dtcr']; ?></td>
+                                    <td nowrap><?php echo $jobdata[$i]['status']; ?></td>
+                                    <td nowrap><?php echo $jobdata[$i]['notes']; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -134,7 +120,7 @@
     <!--<script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"> </script> -->
     <script>
         $(function() {
-            $("#example").dataTable();
+            $("#jobTable").dataTable();
         })
     </script>
 

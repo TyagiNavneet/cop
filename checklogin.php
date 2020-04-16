@@ -59,11 +59,13 @@ if ($userdata) {
 			header("location:adminwelcome.php");
 		} else {
 			$error_message = 'Id not found';
+			logmsg(' #62, Incorrect Username and/or Password, ' . $error_message);
 			header("location:adminlogin.php?loginerror=Incorrect Username and/or Password, " . $error_message);
 			exit;
 		}
 	}
 } else {
+	logmsg(' #67, CheckLogin File - Invalid request.');
 	header("location:adminlogin.php?loginerror=Invalid request.");
 	exit;
 }

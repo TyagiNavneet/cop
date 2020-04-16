@@ -341,12 +341,11 @@ function checkUser($data)
 
     // Check 1 : Checking if username/password and ip is exist
     if ($username && $pass && $ip) {
-        logmsg('Check 1 : Checking if username/password and ip is exist');
+        logmsg(" #344 - Start");
         $countIP = getIpCount($ip);
-
         // Check 2 : for attempts
         if ($countIP > 20) {
-            logmsg(' Tried 20 time with same IP');
+            logmsg(' #348 - User has tried more then 20 times with ip so IP has blocked');
             header("location:adminlogin.php?loginerror=Your IP is Blocked.");
             exit;
         }
@@ -357,41 +356,42 @@ function checkUser($data)
 
         if ($user) {
             // Check 3 : If user exist in database then checking password also.
-            logmsg('Check 3 : If user exist in database then checking password also.');
+            logmsg(' #359 Userfound in db.');
             $sql = "SELECT * from swd_setup_users where pusername = '$username' and ppassword = '$pass'";
             // Using function to get mysql data.    
             $userdata = getResult($sql);
 
             if ($userdata) {
+                logmsg(' #365 Username and password is correct.');
                 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
                 if ($user[0]['login_attempts'] == 3 && strtotime(date("Y-m-d H:i:s")) < strtotime($cenvertedTime)) {
                     //echo $user[0]['login_attempts'] . ' : ' . date("Y-m-d H:i:s") . ' : ' . $cenvertedTime;
-                    logmsg('Check  : For Login attempt 3 with incorrect password. Accoutn locked');
+                    logmsg(' #369 User has tried 3 times with incorrect password so account has locked');
                     $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
+                    logmsg(' #371 Incorrect Password, ' . $error_message);
                     $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
                     mysqli_query($con, $sql);
                     header("location:adminlogin.php?loginerror=Incorrect Password, " . $error_message);
                     exit;
                 }
-
                 // Check 4 : Getting result if both variable is correct.
-                logmsg('Check 4 : Getting result if both variable is correct.');
                 $userid = $userdata[0]['id'];
                 $sql = "UPDATE swd_setup_users set login_attempts='0', last_login=NULL 
                 WHERE id = $userid ";
                 mysqli_query($con, $sql);
                 $sql = "SELECT * from swd_setup_users WHERE id = $userid ";
                 // Updating swd_setup_users table and return userdata based on id.
-                logmsg('Login Success');
+                logmsg(' #384 Login Success');
                 return getResult($sql);
             } else {
                 // Check 5 : Checking login attempts and blocking users for 10 minutes.
-                logmsg('Line 387');
                 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
                 if ($user[0]['login_attempts'] == 3 && strtotime(date("Y-m-d H:i:s")) < strtotime($cenvertedTime)) {
                     $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
                     $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
                     mysqli_query($con, $sql);
+                    logmsg(' #369 User has tried 3 times with incorrect password so account has locked');
+                    logmsg(' #394 Incorrect Password,' . $error_message . '.');
                     header("location:adminlogin.php?loginerror=Incorrect Password, " . $error_message);
                     exit;
                 }
@@ -406,10 +406,12 @@ function checkUser($data)
                     // Updating login attempts in error message.
                     $left = (3 - $user[0]['login_attempts']);
                     $er_msg =  $left . " Login attempt left.";
+                    logmsg(' #409 ' . $er_msg);
                     header("location:adminlogin.php?loginerror=Incorrect Password, " . $er_msg);
                     exit;
                 }
                 // Check 6 : If password is incorrect for existing user.
+                logmsg(' #414 Incorrect password.');
                 header("location:adminlogin.php?loginerror=Incorrect Password. ");
                 exit;
             }
@@ -417,15 +419,18 @@ function checkUser($data)
             // Check 7 : Updating IP address in swd_ip_lock in username is not correct.
             $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
             mysqli_query($con, $sqlip);
+            logmsg(' #422 Username not exist');
             header("location:adminlogin.php?loginerror=Username not exist");
             exit;
         }
     } else {
         // If argument is missing or invalid request.
+        logmsg(' #428 Invalid Request');
         header("location:adminlogin.php?loginerror=Invalid Request");
         exit;
     }
 }
+
 
 // Function to check login attempts for ip address.
 function getIpCount($ip)
@@ -449,9 +454,39 @@ function getCount($param)
 function logmsg($msg)
 {
     $file = 'logs/logs.txt';
+    $ip = get_client_ip();
     if ($file) {
         $d = date('Y-m-d H:i:s');
-        $message = $d . " : " . $msg . "\r\n";
+        $message = $d . " : " . $ip . " : " . $msg . "\r\n";
         file_put_contents($file, $message, FILE_APPEND);
     }
+}
+
+function getJobStatus($status)
+{
+    $con = dbCon();
+    if ($status == 1) {
+        $sql = "SELECT * from jobs where finjob IS NOT NULL";
+    } else {
+        $sql = "SELECT * from jobs where finjob IS NULL";
+    }
+    $result = mysqli_query($con, $sql);
+    $count = mysqli_num_rows($result);
+    return $count;
+}
+
+
+function getInvoiceTotal()
+{
+    $sql = "SELECT SUM(tot) AS total FROM invoices";
+    $amount = getResult($sql);
+    return $amount[0]['total'];
+}
+
+function getJobsView()
+{
+    $SQL = "SELECT s.siteaddress,j.jobid,j.worksid,j.dtcr,j.status,jn.notes FROM jobs j 
+            left JOIN sites s ON j.siteid=s.siteid left JOIN jobnotes jn ON j.jobid=jn.joblink";
+    $data = getResult($SQL);
+    return $data;
 }
