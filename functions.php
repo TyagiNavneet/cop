@@ -268,10 +268,11 @@ function deleteDir($dirPath)
 function getDashbordData()
 {
     $mysqllink = dbCon();
-    $sql = "SELECT a.*,b.*,c.* FROM jobs  a 
+    $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
     LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
+    LEFT JOIN sites s ON a.`siteid` = s.`siteid`
+    LEFT JOIN jobnotes j ON a.`jobid` = j.joblink
     LEFT JOIN invoices c ON a.`jobid` = c.`joblink`";
-
     $result = mysqli_query($mysqllink, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
@@ -280,6 +281,7 @@ function getDashbordData()
     }
     return $data;
 }
+
 function viewJobsbyId($id)
 {
     $mysqllink = dbCon();
@@ -485,8 +487,34 @@ function getInvoiceTotal()
 
 function getJobsView()
 {
-    $SQL = "SELECT s.siteaddress,j.jobid,j.worksid,j.dtcr,j.status,jn.notes FROM jobs j 
-            left JOIN sites s ON j.siteid=s.siteid left JOIN jobnotes jn ON j.jobid=jn.joblink";
+    /*$SQL = "SELECT s.siteaddress,j.jobid,j.worksid,j.dtcr,j.status,jn.notes FROM jobs j 
+            left JOIN sites s ON j.siteid=s.siteid left JOIN jobnotes jn ON j.jobid=jn.joblink"; */
+    $SQL = "SELECT s.*,j.*,jn.* FROM jobs j left JOIN sites s ON j.siteid=s.siteid left JOIN jobnotes jn ON j.jobid=jn.joblink";
     $data = getResult($SQL);
     return $data;
+}
+
+function get_client_ip()
+{
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if (getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if (getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if (getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if (getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+    else if (getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
+
+function allowIp(){
+   $ip = get_client_ip();
+   if ( ($ip == "92.16.150.76") || ($ip == "182.73.16.20") ) return true;
 }

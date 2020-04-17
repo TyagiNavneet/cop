@@ -21,14 +21,20 @@
 <body>
     <?php
     session_start();
+    include("functions.php");
     if ($_SESSION['82j2ud2891166sid']) {
         $username = $_SESSION['82j2ud2891166sdispname'];
-        include("functions.php");
         $jobs = getDashbordData();
+        $status = array_unique(array_column($jobs, 'status'));
+        sort($status);
+        $sitename = array_unique(array_column($jobs, 'sitename'));
+        sort($sitename);
         $jobdata = getJobsView();
+        logmsg('#29 - Viewing jobs page.');
     } else {
         session_destroy();
-        header("location:adminlogin.php?loginerror=Invalid access.");
+        logmsg('#31.jobs Invalid request');
+        header("location:adminlogin.php?loginerror=Invalid request.");
         exit;
     }
     ?>
@@ -61,45 +67,68 @@
             </nav>
             <div class="flud-container">
                 <div class="interaction-listing">
-                    <!--   <div class="management-option management-pg row">
-                        <div class="col-lg-6 text-center text-lg-left">
-                            <button type="button" class="btn btn-primary group-btn mr-3 mb-4 "><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>ADD HOURS</button>
-                            <button type="button" class="btn btn-primary schedule-btn mb-4 "><span><i class="fa fa-book" aria-hidden="true"></i></i></span>WORKS DIARY</button>
-                        </div>
+                    <div class="row plots-filter">
+                        <div class="col-md-6">
+                            <div class='form-inline mb-3'>
+                            <label class="mr-2">Sitename : </label>
+                                <select id='column4_search' class='form-control'>
+                                    <?php foreach($sitename as $key=>$value){ ?>
+                                        <option value='<?php echo $value; ?>'><?php echo $value; ?></option>    
+                                   <?php } ?>
+                                </select></div>
 
-                        <div class="col-lg-6 text-center text-lg-right">
-                            <button type="button" class="btn btn-primary quick-btn mb-4 "><span><i class="fa fa-eye" aria-hidden="true"></i></span>VIEW RAMs</button>
-                            <button type="button" class="btn btn-primary upload-btn mb-4 ml-3"><span><i class="custom-icon add-icon" aria-hidden="true"></i></span>COMPLETE DATA</button>
                         </div>
-                    </div> -->
+                        <div class="col-md-6">                            
+                            <div class='form-inline mb-3'>
+                                <label class="mr-2">Status : </label>
+                                <select id='column4_search' class='form-control'>
+                                    <option value=''>All</option>
+                                    <?php foreach($status as $key=>$value){ ?>
+                                        <option value='<?php echo $value; ?>'><?php echo $value; ?></option>    
+                                   <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table id="jobTable">
                             <thead>
                                 <tr>
-                                    <th style="white-space:nowrap;"> </th>
+                                    <th style="white-space:nowrap;"> Sn. </th>
+                                    <th style="white-space:nowrap;">Job No.</th>
+                                    <th style="white-space:nowrap;">Date</th>
+                                    <th style="white-space:nowrap;">Site Name</th>
+                                    <th style="white-space:nowrap;">Ref/Task No.</th>
                                     <th style="white-space:nowrap;">Site Address</th>
-                                    <th style="white-space:nowrap;">Job Number</th>
-                                    <th style="white-space:nowrap;">Task Number</th>
-                                    <th style="white-space:nowrap;">Job Raised Date</th>
+                                    <th style="white-space:nowrap;">Defect</th>
+                                    <th style="white-space:nowrap;">Last Note</th>
                                     <th style="white-space:nowrap;">Status</th>
-                                    <th style="white-space:nowrap;">Last Note </th>
+                                    <th style="white-space:nowrap;">Work Category</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = 0; $i < sizeof($jobdata); $i++) {
-                                    $jobid = $jobdata[$i]['jobid']; ?>
+                                <?php for ($i = 0; $i < sizeof($jobs); $i++) {
+                                    $cidno = $jobs[$i]['cidno'];
+                                    $jobid = $jobs[$i]['jobid']; ?>
                                     <td nowrap>
                                         <a href="viewjobs.php?jid=<?php echo $jobid; ?>">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a></td>
+                                    <td><?php echo $jobs[$i]['jobid']; ?></td>
+                                    <td nowrap><?php echo $jobs[$i]['dtcr']; ?></td>
                                     <td nowrap>
                                         <a href="viewcustomer.php?cid=<?php echo $cidno; ?>">
-                                            <?php echo $jobdata[$i]['siteaddress']; ?></a></td>
-                                    <td nowrap><?php echo $jobdata[$i]['jobid']; ?></td>
-                                    <td nowrap><?php echo $jobdata[$i]['worksid']; ?></td>
-                                    <td nowrap><?php echo $jobdata[$i]['dtcr']; ?></td>
-                                    <td nowrap><?php echo $jobdata[$i]['status']; ?></td>
-                                    <td nowrap><?php echo $jobdata[$i]['notes']; ?></td>
+                                            <?php echo $jobs[$i]['sitename']; ?></a></td>
+                                    <td nowrap><?php echo $jobs[$i]['cref']; ?></td>
+                                    <td nowrap>
+                                        <?php echo $jobs[$i]['siadd']; ?>
+                                    </td>
+                                    <td nowrap><?php echo $jobs[$i]['defect']; ?></td>
+                                    <td nowrap><?php echo $jobs[$i]['lnote']; ?></td>
+                                    <td nowrap><?php echo $jobs[$i]['status']; ?></td>
+                                    <td nowrap><?php echo $jobs[$i]['workscat']; ?></td>
+
+
                                     </tr>
                                 <?php } ?>
                             </tbody>

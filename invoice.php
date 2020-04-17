@@ -21,13 +21,15 @@
 <body>
     <?php
     session_start();
+    include("functions.php");
     if ($_SESSION['82j2ud2891166sid']) {
         $username = $_SESSION['82j2ud2891166sdispname'];
-        include("functions.php");
         $jobs = getDashbordData();
+        logmsg('#29 - Viewing invoice page.');
     } else {
         session_destroy();
-        header("location:adminlogin.php?loginerror=Invalid access.");
+        logmsg('#30.invoice Invalid request');
+        header("location:adminlogin.php?loginerror=Invalid request.");
         exit;
     }
     ?>

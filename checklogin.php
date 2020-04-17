@@ -6,6 +6,7 @@ $data['ip'] = get_client_ip();
 // Using function checkUser() for validation.
 $userdata = checkUser($data);
 if ($userdata) {
+	//die('test');
 	$row = $userdata[0];
 	session_start();
 	session_regenerate_id();
@@ -59,24 +60,21 @@ if ($userdata) {
 			header("location:adminwelcome.php");
 		} else {
 			$error_message = 'Id not found';
-			logmsg(' #62, Incorrect Username and/or Password, ' . $error_message);
 			header("location:adminlogin.php?loginerror=Incorrect Username and/or Password, " . $error_message);
 			exit;
 		}
 	}
 } else {
-	logmsg(' #67, CheckLogin File - Invalid request.');
 	header("location:adminlogin.php?loginerror=Invalid request.");
 	exit;
 }
 
-
-
-//$hm = authenticate($_POST['username'], $_POST['userpassword']);
+//$hm = authenticate($_POST['username'], $_POST['userpassword']); 
 function authenticate($user, $pass)
 {
-	include("functions.php");
 	$user = str_replace(";", "", $user);
+	include("db_connect.php");
+	include("functions.php");
 	$pass = strtoupper(md5(trim($pass)));
 	$curIP = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 
@@ -200,24 +198,26 @@ function authenticate($user, $pass)
 	}
 
 	include("db_close.php");
-}
+}	
+/*
+// @navneet- 17thApril - 09.00am Commented as this is declared in fucntions.ph file.
 
-function get_client_ip()
-{
-	$ipaddress = '';
-	if (getenv('HTTP_CLIENT_IP'))
-		$ipaddress = getenv('HTTP_CLIENT_IP');
-	else if (getenv('HTTP_X_FORWARDED_FOR'))
-		$ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-	else if (getenv('HTTP_X_FORWARDED'))
-		$ipaddress = getenv('HTTP_X_FORWARDED');
-	else if (getenv('HTTP_FORWARDED_FOR'))
-		$ipaddress = getenv('HTTP_FORWARDED_FOR');
-	else if (getenv('HTTP_FORWARDED'))
-		$ipaddress = getenv('HTTP_FORWARDED');
-	else if (getenv('REMOTE_ADDR'))
-		$ipaddress = getenv('REMOTE_ADDR');
-	else
-		$ipaddress = 'UNKNOWN';
-	return $ipaddress;
+function get_client_ip() {
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if(getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if(getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if(getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if(getenv('HTTP_FORWARDED'))
+       $ipaddress = getenv('HTTP_FORWARDED');
+    else if(getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
 }
+*/

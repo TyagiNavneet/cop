@@ -1,4 +1,9 @@
 <?php
+
+include("functions.php");
+//$pass = allowIP();
+//if($pass) die('failed');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,14 +28,13 @@
 
 <body style="overflow:hidden;" }>
 	<?php
-	session_start();
 	if ($_SESSION['82j2ud2891166sid']) {
 		$username = $_SESSION['82j2ud2891166sdispname'];
-		include("functions.php");
 		$jobs = getDashbordData();
 	} else {
 		session_destroy();
-		header("location:adminlogin.php?loginerror=Invalid access.");
+		logmsg('#34 welcome - Invalid request');
+		header("location:adminlogin.php?loginerror=Invalid request.");
 		exit;
 	}
 	?>
@@ -72,8 +76,8 @@
 						<div class="card bg-gradient-danger card-img-holder text-white">
 							<div class="card-body" style="cursor: pointer;" onclick="window.location='#';">
 								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-								<h4 class="font-weight-normal mb-3">Customer<i class="mdi mdi-chart-line mdi-24px float-right"></i>
-								</h4>
+								<h2 class="font-weight-bold mb-3">Customer<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+								</h2>
 								<h2 class="mb-5"><?php echo getCount('customers'); ?></h2>
 								<h6 class="card-text"></h6>
 							</div>
@@ -83,11 +87,11 @@
 						<div class="card bg-gradient-info card-img-holder text-white">
 							<div class="card-body" style="cursor: pointer;" onclick="window.location='jobs.php';">
 								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-								<h4 class="font-weight-normal mb-3">Total Jobs<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-								</h4>
+								<h2 class="font-weight-bold mb-3">Total Jobs<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+								</h2>
 								<h2 class="mb-5"><?php echo getCount('jobs');
 													?></h2>
-								<h6 class="card-text"><?php echo "Completed Jobs : " . getJobStatus(1); ?> </h6>
+								<h5 class="card-text"><?php echo "Completed Jobs : " . getJobStatus(1); ?> </h5>
 							</div>
 						</div>
 					</div>
@@ -95,10 +99,10 @@
 						<div class="card bg-gradient-success card-img-holder text-white">
 							<div class="card-body" style="cursor: pointer;" onclick="window.location='invoice.php';">
 								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-								<h4 class="font-weight-normal mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
-								</h4>
+								<h2 class="font-weight-bold mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
+								</h2>
 								<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
-								<h6 class="card-text">Total amount $ <?php echo getInvoiceTotal(); ?></h6>
+								<h5 class="card-text">Total amount £ <?php echo getInvoiceTotal(); ?></h5>
 							</div>
 						</div>
 					</div>
