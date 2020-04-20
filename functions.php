@@ -1,4 +1,5 @@
 <?PHP
+error_reporting(0);
 function getUserIpAddr()
 {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -12,7 +13,6 @@ function getUserIpAddr()
     }
     return $ip;
 }
-
 // Function to work out 
 function calculateMinutes(DateInterval $intpass)
 {
@@ -49,7 +49,6 @@ function mdecrypt($base64_encrypted)
     $decrypted = openssl_decrypt($encrypted, $OPEN_SSL_METHOD, base64_decode($BASE64_ENCRYPTION_KEY), 0, base64_decode($BASE64_IV));
     return $decrypted;
 }
-
 
 function datacleanse($strpass)
 {
@@ -104,38 +103,30 @@ function mkdirPath($target)
     if (isStream($target)) {
         list($wrapper, $target) = explode('://', $target, 2);
     }
-
     // from php.net/mkdir user contributed notes
     $target = str_replace('//', '/', $target);
-
     // put the wrapper back on the target
     if ($wrapper !== null) {
         $target = $wrapper . '://' . $target;
     }
-
     // safe mode fails with a trailing slash under certain PHP versions.
     $target = rtrim($target, '/'); // Use rtrim() instead of untrailingslashit to avoid formatting.php dependency.
     if (empty($target))
         $target = '/';
-
     if (file_exists($target))
         return @is_dir($target);
-
     // We need to find the permissions of the parent folder that exists and inherit that.
     $target_parent = dirname($target);
     while ('.' != $target_parent && !is_dir($target_parent)) {
         $target_parent = dirname($target_parent);
     }
-
     // Get the permission bits.
     if ($stat = @stat($target_parent)) {
         $dir_perms = $stat['mode'] & 0007777;
     } else {
         $dir_perms = 0777;
     }
-
     if (@mkdir($target, $dir_perms, true)) {
-
         // If a umask is set that modifies $dir_perms, we'll have to re-set the $dir_perms correctly with chmod()
         if ($dir_perms != ($dir_perms & ~umask())) {
             $folder_parts = explode('/', substr($target, strlen($target_parent) + 1));
@@ -143,24 +134,19 @@ function mkdirPath($target)
                 @chmod($target_parent . '/' . implode('/', array_slice($folder_parts, 0, $i)), $dir_perms);
             }
         }
-
         return true;
     }
-
     return false;
 }
 
 function isStream($path)
 {
     $scheme_separator = strpos($path, '://');
-
     if (false === $scheme_separator) {
         // $path isn't a stream
         return false;
     }
-
     $stream = substr($path, 0, $scheme_separator);
-
     return in_array($stream, stream_get_wrappers(), true);
 }
 
@@ -173,12 +159,10 @@ function validateByDomain($emailAddress, $acceptedDomails)
 {
     // Get the domain from the email address
     $domain = getDomain(trim($emailAddress));
-
     // Check if domain is accepted. Return return if so
     if (in_array($domain, $acceptedDomails)) {
         return true;
     }
-
     return false;
 }
 
@@ -265,21 +249,27 @@ function deleteDir($dirPath)
     return false;
 }
 
-function getDashbordData()
-{
+function getDashbordData($fdt,$ldt) {
     $mysqllink = dbCon();
-    $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
+    if( isset($fdt) && isset($fdt) ) { 
+     $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
     LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
     LEFT JOIN sites s ON a.`siteid` = s.`siteid`
     LEFT JOIN jobnotes j ON a.`jobid` = j.joblink
-    LEFT JOIN invoices c ON a.`jobid` = c.`joblink`";
+    LEFT JOIN invoices c ON a.`jobid` = c.`joblink`
+    where a.dtcr >= '$fdt' and a.dtcr<='$ldt'";
+    } else{
+     $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
+    LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
+    LEFT JOIN sites s ON a.`siteid` = s.`siteid`
+    LEFT JOIN jobnotes j ON a.`jobid` = j.joblink
+    LEFT JOIN invoices c ON a.`jobid` = c.`joblink`";  }
     $result = mysqli_query($mysqllink, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
-        }
-    }
-    return $data;
+        } return $data; }
+    else{ return false;}    
 }
 
 function viewJobsbyId($id)
@@ -311,7 +301,7 @@ function viewCustomerbyId($id)
 // MySql Connection using Config variable
 function dbCon()
 {
-    include('config.php');
+    include_once('config.php');
     $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME) or die("Connect failed: %s\n" . $conn->error);
     return $conn;
 }
@@ -331,7 +321,6 @@ function getResult($query)
     }
 }
 
-
 // Validation login .
 function checkUser($data)
 {
@@ -340,7 +329,6 @@ function checkUser($data)
     $pass = strtoupper(md5(trim($data['pass'])));
     $ip = $data['ip'];
     $con = dbCon();
-
     // Check 1 : Checking if username/password and ip is exist
     if ($username && $pass && $ip) {
         logmsg(" #344 - Start");
@@ -348,10 +336,9 @@ function checkUser($data)
         // Check 2 : for attempts
         if ($countIP > 20) {
             logmsg(' #348 - User has tried more then 20 times with ip so IP has blocked');
-            header("location:adminlogin.php?loginerror=Your IP is Blocked.");
+            redirect("adminlogin.php?loginerror=Your IP is Blocked.");
             exit;
         }
-
         // Getting user data if exist.
         $sql = "SELECT * from swd_setup_users where pusername = '" . $username . "'";
         $user  = getResult($sql); // Retriving user data by username.
@@ -362,7 +349,6 @@ function checkUser($data)
             $sql = "SELECT * from swd_setup_users where pusername = '$username' and ppassword = '$pass'";
             // Using function to get mysql data.    
             $userdata = getResult($sql);
-
             if ($userdata) {
                 logmsg(' #365 Username and password is correct.');
                 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
@@ -373,7 +359,7 @@ function checkUser($data)
                     logmsg(' #371 Incorrect Password, ' . $error_message);
                     $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
                     mysqli_query($con, $sql);
-                    header("location:adminlogin.php?loginerror=Incorrect Password, " . $error_message);
+                    redirect("adminlogin.php?loginerror=Incorrect Password, " . $error_message);
                     exit;
                 }
                 // Check 4 : Getting result if both variable is correct.
@@ -394,7 +380,7 @@ function checkUser($data)
                     mysqli_query($con, $sql);
                     logmsg(' #369 User has tried 3 times with incorrect password so account has locked');
                     logmsg(' #394 Incorrect Password,' . $error_message . '.');
-                    header("location:adminlogin.php?loginerror=Incorrect Password, " . $error_message);
+                    redirect("adminlogin.php?loginerror=Incorrect Password, " . $error_message);
                     exit;
                 }
                 // Updating details in swd_setup_users after 10 minutes if password is not correct.
@@ -409,12 +395,12 @@ function checkUser($data)
                     $left = (3 - $user[0]['login_attempts']);
                     $er_msg =  $left . " Login attempt left.";
                     logmsg(' #409 ' . $er_msg);
-                    header("location:adminlogin.php?loginerror=Incorrect Password, " . $er_msg);
+                    redirect("adminlogin.php?loginerror=Incorrect Password, " . $er_msg);
                     exit;
                 }
                 // Check 6 : If password is incorrect for existing user.
                 logmsg(' #414 Incorrect password.');
-                header("location:adminlogin.php?loginerror=Incorrect Password. ");
+                redirect("adminlogin.php?loginerror=Incorrect Password. ");
                 exit;
             }
         } else {
@@ -422,17 +408,16 @@ function checkUser($data)
             $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
             mysqli_query($con, $sqlip);
             logmsg(' #422 Username not exist');
-            header("location:adminlogin.php?loginerror=Username not exist");
+            redirect("adminlogin.php?loginerror=Username not exist");
             exit;
         }
     } else {
         // If argument is missing or invalid request.
         logmsg(' #428 Invalid Request');
-        header("location:adminlogin.php?loginerror=Invalid Request");
+        redirect("adminlogin.php?loginerror=Invalid Request");
         exit;
     }
 }
-
 
 // Function to check login attempts for ip address.
 function getIpCount($ip)
@@ -464,9 +449,16 @@ function logmsg($msg)
     }
 }
 
-function getJobStatus($status)
+function getJobStatus($status,$fdt,$ldt)
 {
     $con = dbCon();
+    if(isset($status) && isset($fdt) && isset($ldt)){
+         $sql = "SELECT * from jobs where finjob IS NOT NULL and dtcr >='$fdt' and dtcr <='$ldt'";
+         $result = mysqli_query($con, $sql);
+         $count = mysqli_num_rows($result);
+         if($count) { return $count; }
+         else { return false; }
+        }
     if ($status == 1) {
         $sql = "SELECT * from jobs where finjob IS NOT NULL";
     } else {
@@ -512,9 +504,4 @@ function get_client_ip()
     else
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
-}
-
-function allowIp(){
-   $ip = get_client_ip();
-   if ( ($ip == "92.16.150.76") || ($ip == "182.73.16.20") ) return true;
 }

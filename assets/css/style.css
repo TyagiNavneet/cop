@@ -5524,7 +5524,7 @@ input[type="button"].btn-block {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1.25rem; }
-
+/*.card-body:hover { color: red; }*/
 .card-title {
   margin-bottom: 0.75rem; }
 
@@ -11890,7 +11890,7 @@ code {
   border: 0;
   background: #fff; }
   .card .card-body {
-    padding: 2.5rem 2.5rem; }
+    padding: 3.5rem 2.5rem; }
     .card .card-body + .card-body {
       padding-top: 1rem; }
   .card .card-title {
