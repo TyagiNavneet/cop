@@ -39,9 +39,9 @@ error_reporting(0);
 					<div class="login_icon  text-center">
 						<img src="assets/images/login_icon.png" alt="">
 					</div>
-					<div class="form">
+					<div class="form position-relative pb-5">
 						<form method="POST" action="checklogin.php">
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label for="username" class="bmd-label-floating">Enter Your Email</label>
 								<input type="text" class="form-control" name="username" id="username" required>
 							</div>
@@ -50,18 +50,14 @@ error_reporting(0);
 								<input type="password" class="form-control" name="userpassword" id="userpassword" required>
 							</div>
 							<!--<div class="form-group text-right">
-							<a href="mailto:paul@cavendishpark.co.uk">Forgot Password ?</a>
-						</div> -->
+								<a href="mailto:paul@cavendishpark.co.uk">Forgot Password ?</a>
+							</div>-->
 							<button type="submit" class="btn btn-raised btn-primary btn-block">Login</button>
 						</form>
+						<?PHP if (!empty($_GET['loginerror'])) {
+							echo '<div class="text-danger" style="position:absolute;bottom:0;left:0;right:0; padding-top: 12px;text-align: center;">'. $_GET['loginerror'] . '</div>';
+						}?>
 					</div>
-					<?PHP if (!empty($_GET['loginerror'])) {
-						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="background-color: #f2dede;border-color: #ebcccc;color: #a94442;">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>'
-							. $_GET['loginerror'] . '</div>';
-					}  ?>
 
 				</div>
 			</div>

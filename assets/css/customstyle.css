@@ -275,6 +275,23 @@ footer{
 	margin-top: 50px;
 }
 
+
+/* dashboard cards */
+body {color: #343a40;text-align: left;}
+.widgetLink:hover {color: red;}
+.content-wrapper {background: #ffffff;padding: 2.75rem 2.25rem;width: 100%;-webkit-box-flex: 1;-ms-flex-positive: 1;flex-grow: 1; }
+.stretch-card {display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: stretch;-ms-flex-align: stretch;align-items: stretch;-webkit-box-pack: stretch;-ms-flex-pack: stretch;justify-content: stretch; }
+.stretch-card > .card {width: 100%;min-width: 100%; border-radius: 0.3125rem;}
+.card.card-img-holder .card-img-absolute {position: absolute;top: 0;right: 0;height: 100%; }
+.bg-gradient-info {background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf)) !important;background: linear-gradient(to right, #90caf9, #047edf 99%) !important; }
+.bg-gradient-success {background: -webkit-gradient(linear, left top, right top, from(#84d9d2), to(#07cdae)) !important;background: linear-gradient(to right, #84d9d2, #07cdae) !important; }
+.card.card-img-holder {position: relative; }
+.card .card-body {padding: 3.5rem 2.5rem; }
+.grid-margin, .purchase-popup {margin-bottom: 2.5rem; }
+
+/* End of dashboard cards */
+
+
 @media (min-width: 768px) {
 	.content {
 	  padding-left: 265px;

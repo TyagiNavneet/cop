@@ -13,15 +13,11 @@
 	<link href="assets/css/customstyle.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/jquerydatatbl.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <style>
-        .widgetLink:hover {
-            color: red;
-        }
-    </style>
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </head>
-<body style="overflow:hidden;" } >
+<body>
 	<?php
         error_reporting(0);
 	session_start();
@@ -64,36 +60,38 @@
 					</div>
 				</div>
 			</nav>
-			<div class="content-wrapper">
-				<div class="row">
-					<div class="col-md-6 stretch-card grid-margin">
-                       			<div class="card bg-gradient-info card-img-holder text-white">
-                                                   	<div class="card-body" >Select Date Range -
-                                                            <input type="text" name="datefilter"  id="datefilter" />
-								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                                                                <h2 class="font-weight-bold mb-3 " >
-                                                                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-								</h2>
-                                                                <br>
-                                                                <h2 class="font-weight-bold mb-5 widgetLink" style="cursor: pointer;" 
-                                                                    onclick="window.location='jobs.php?j=2';">
-                                                                    <?php echo "Total Jobs : ";?>
-                                                                    <span id="totaljobscount"><?php echo $c; ?></span>
-                                                                </h2>
-								<h5 class="card-text">
-                                                                    <?php echo "Completed Jobs : ";?><span id="completedjobs"><?php echo getJobStatus('1',NULL,NULL);?></span> </h5>
-                                                                    
+			<div class="flud-container mt-5">
+				<div class="content-wrapper">
+					<div class="row">
+						<div class="col-md-6 stretch-card grid-margin">
+															<div class="card bg-gradient-info card-img-holder text-white">
+																											<div class="card-body" >Select Date Range -
+																															<input type="text" name="datefilter"  id="datefilter" />
+									<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+																																	<h2 class="font-weight-bold mb-3 " >
+																																			<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+									</h2>
+																																	<br>
+																																	<h2 class="font-weight-bold mb-5 widgetLink" style="cursor: pointer;" 
+																																			onclick="window.location='jobs.php?j=2';">
+																																			<?php echo "Total Jobs : ";?>
+																																			<span id="totaljobscount"><?php echo $c; ?></span>
+																																	</h2>
+									<h5 class="card-text">
+																																			<?php echo "Completed Jobs : ";?><span id="completedjobs"><?php echo getJobStatus('1',NULL,NULL);?></span> </h5>
+																																			
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6 stretch-card grid-margin">
-						<div class="card bg-gradient-success card-img-holder text-white">
-							<div class="card-body" style="cursor: pointer;" onclick="window.location='invoice.php';">
-								<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-								<h2 class="font-weight-bold mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
-								</h2>
-								<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
-								<h5 class="card-text">Total amount £ <?php echo getInvoiceTotal(); ?></h5>
+						<div class="col-md-6 stretch-card grid-margin">
+							<div class="card bg-gradient-success card-img-holder text-white">
+								<div class="card-body" style="cursor: pointer;" onclick="window.location='invoice.php';">
+									<img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+									<h2 class="font-weight-bold mb-3">Invoices <i class="mdi mdi-diamond mdi-24px float-right"></i>
+									</h2>
+									<h2 class="mb-5"><?php echo getCount('invoices'); ?></h2>
+									<h5 class="card-text">Total amount £ <?php echo getInvoiceTotal(); ?></h5>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -113,10 +111,10 @@
 	<script src="assets/js/jquery.dataTables.min.js"></script>  
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>  
 	<script src="assets/js/pushbar.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<script type="text/javascript">
 $(function() {
   $('input[name="datefilter"]').daterangepicker({
       autoUpdateInput: false,
