@@ -278,6 +278,7 @@ footer{
 
 /* dashboard cards */
 body {color: #343a40;text-align: left;}
+.widgetLink,.widgetLink:disabled, .widgetLink:disabled:hover  {color: #fff;}
 .widgetLink:hover {color: red;}
 .content-wrapper {background: #ffffff;padding: 2.75rem 2.25rem;width: 100%;-webkit-box-flex: 1;-ms-flex-positive: 1;flex-grow: 1; }
 .stretch-card {display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: stretch;-ms-flex-align: stretch;align-items: stretch;-webkit-box-pack: stretch;-ms-flex-pack: stretch;justify-content: stretch; }
@@ -288,7 +289,7 @@ body {color: #343a40;text-align: left;}
 .card.card-img-holder {position: relative; }
 .card .card-body {padding: 3.5rem 2.5rem; }
 .grid-margin, .purchase-popup {margin-bottom: 2.5rem; }
-
+button:not([disabled]) {cursor: pointer;}
 /* End of dashboard cards */
 
 

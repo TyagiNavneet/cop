@@ -249,9 +249,13 @@ function deleteDir($dirPath)
     return false;
 }
 
-function getDashbordData($fdt,$ldt) {
+function getDashbordData($mnth,$year) {
+    
+    $dayJob = cal_days_in_month(CAL_GREGORIAN, $mnth,$year);
+    $fdt = $year."-".$mnth."-01";
+    $ldt = $year."-".$mnth."-".$dayJob;
     $mysqllink = dbCon();
-    if( isset($fdt) && isset($fdt) ) { 
+    if( isset($mnth) && isset($year) ) { 
      $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
     LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
     LEFT JOIN sites s ON a.`siteid` = s.`siteid`
@@ -357,7 +361,7 @@ function checkUser($data)
                     logmsg(' #369 User has tried 3 times with incorrect password so account has locked');
                     $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
                     logmsg(' #371 Incorrect Password, ' . $error_message);
-                    $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
+                    $sql = "INSERT INTO swd_ip_lock (`ipaddress`)   VALUES ('$ip')";
                     mysqli_query($con, $sql);
                     redirect("adminlogin.php?loginerror=Incorrect Password, " . $error_message);
                     exit;
@@ -376,7 +380,7 @@ function checkUser($data)
                 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($user[0]['last_login'])));
                 if ($user[0]['login_attempts'] == 3 && strtotime(date("Y-m-d H:i:s")) < strtotime($cenvertedTime)) {
                     $error_message = 'Your account is temporarily locked, please try after ' . $cenvertedTime . '';
-                    $sql = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
+                    $sql = "INSERT INTO swd_ip_lock (`ipaddress`)   VALUES ('$ip')";
                     mysqli_query($con, $sql);
                     logmsg(' #369 User has tried 3 times with incorrect password so account has locked');
                     logmsg(' #394 Incorrect Password,' . $error_message . '.');
@@ -388,7 +392,7 @@ function checkUser($data)
                 $sql = "UPDATE swd_setup_users set login_attempts = login_attempts + 1 , last_login = '" . $dttime . "'
                 WHERE pusername = '" . $username . "'";
                 mysqli_query($con, $sql);
-                $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
+                $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`) VALUES ('$ip')";
                 mysqli_query($con, $sqlip);
                 if ($user[0]['login_attempts'] < 4) {
                     // Updating login attempts in error message.
@@ -405,7 +409,7 @@ function checkUser($data)
             }
         } else {
             // Check 7 : Updating IP address in swd_ip_lock in username is not correct.
-            $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`)	VALUES ('$ip')";
+            $sqlip = "INSERT INTO swd_ip_lock (`ipaddress`) VALUES ('$ip')";
             mysqli_query($con, $sqlip);
             logmsg(' #422 Username not exist');
             redirect("adminlogin.php?loginerror=Username not exist");
@@ -504,4 +508,33 @@ function get_client_ip()
     else
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
+}
+
+function getInvoiceData($mnth,$year) {
+    $dayJob = cal_days_in_month(CAL_GREGORIAN,$mnth,$year);
+    $fdt = $year."-".$mnth."-01";
+    $ldt = $year."-".$mnth."-".$dayJob;
+    $mysqllink = dbCon();
+    if( isset($fdt) && isset($ldt) ) { 
+        $sql="SELECT * FROM invoices WHERE DATE >='$fdt' AND DATE <= '$ldt'";
+         } else{
+     $sql = "SELECT * FROM invoices";  }
+     $result = mysqli_query($mysqllink, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        } return $data; }
+    else{ return false;}    
+}
+
+function getInvoiceAmount($mnth,$year)
+{
+    $dayJob = cal_days_in_month(CAL_GREGORIAN, $mnth, $year);
+    $fdt = $year."-".$mnth."-01";
+    $ldt = $year."-".$mnth."-".$dayJob;
+    if( isset($fdt) && isset($ldt) ) { $sql = "SELECT SUM(tot) AS total FROM invoices WHERE date >='".$fdt."' and date <='".$ldt."'"; }
+    else{  $sql = "SELECT SUM(tot) AS total FROM invoices"; }
+    //echo $sql;
+    $amount = getResult($sql);
+    return $amount[0]['total'];
 }
