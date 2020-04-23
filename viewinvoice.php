@@ -21,12 +21,12 @@
 	<?php
     error_reporting(0);
 	session_start();
-	if($_GET['jid']) {
+	if($_GET['invoiceid']) {
 	include("functions.php");
 	if ($_SESSION['82j2ud2891166sid']) {
 		$username = $_SESSION['82j2ud2891166sdispname'];
-		$DatabyId = getJobsDataById($_GET['jid']);
-		if($DatabyId) { $JobData = $DatabyId; }
+		$DatabyId = getInvoicedatabyId($_GET['invoiceid']);
+		if($DatabyId) { $InvoiceData = $DatabyId; }
 		else {} 
 
 	} else {
@@ -51,7 +51,7 @@
 		<div class="content">
 			<nav class="navbar navbar-expand">
 				<a class="navbar-icon waves-effect waves-light mr-3 d-md-none" data-toggle="sidebar" data-target="#sidebar" href="javascript:;"><i class="fa fa-bars" aria-hidden="true"></i></a>
-				<span class="navbar-text page-title">View record : <?php echo $_GET['jid'];?></span>
+				<span class="navbar-text page-title">View record : <?php echo $_GET['invoiceid'];?></span>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<div class="ml-auto">
 						<a class="welcome" href="javascript:;">
@@ -65,7 +65,7 @@
 			</nav> 
 			<div class="flud-container mt-5">
 				<div class="content-wrapper"> <?php echo "<pre>";
-				print_r($JobData);?>
+				print_r($InvoiceData);?>
 			</div></div>		
 			
 		</div> 	

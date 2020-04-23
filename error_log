@@ -1,0 +1,163 @@
+[17-Apr-2020 05:07:22 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(30): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:07:27 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(30): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:32 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:35 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:36 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:36 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:37 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:38 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:38 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:40 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:40 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:40 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[17-Apr-2020 05:08:40 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function get_client_ip() in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php:457
+Stack trace:
+#0 /home/ewsltdco/cavcust.bespokesoftware.co/jobs.php(31): logmsg('#30 jobs - Inva...')
+#1 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/functions.php on line 457
+[23-Apr-2020 05:18:03 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 05:18:09 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 05:18:10 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 05:18:39 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:19:28 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:20:25 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:20:35 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:14 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:14 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:15 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:15 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:15 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:15 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:21:15 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:24:33 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 21
+[23-Apr-2020 05:24:46 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 05:24:57 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 05:25:00 Europe/London] PHP Fatal error:  Uncaught Error: Call to undefined function getInvoiceData() in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 20
+[23-Apr-2020 07:33:02 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/ewsltdco/cavcust.bespokesoftware.co/invoice.php on line 113

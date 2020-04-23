@@ -137,7 +137,7 @@
                                             <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                                         </h2>
                                         <h2 class="font-weight-bold mb-5 widgetLink" style="cursor: pointer;" 
-                                            onclick="window.location = 'invoice.php';">
+                                            onclick="window.location = 'invoice.php?4a4f5sda4f5as7f8er5fds=f45454fsda4f';">
                                                 <?php echo "Invoices : "; ?>
                                             <span id="invoiceCount"><?php echo getCount('invoices'); ?></span>
                                         </h2>

@@ -276,6 +276,44 @@ function getDashbordData($mnth,$year) {
     else{ return false;}    
 }
 
+function getJobsDataById($jobid){
+if($jobid) {
+        $mysqllink = dbCon();
+            $sql = "SELECT a.*,b.*,c.*,s.siteaddress AS siadd,j.notes AS lnote FROM jobs  a 
+        LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
+        LEFT JOIN sites s ON a.`siteid` = s.`siteid`
+        LEFT JOIN jobnotes j ON a.`jobid` = j.joblink
+        LEFT JOIN invoices c ON a.`jobid` = c.`joblink` where a.jobid=$jobid";
+        $result = mysqli_query($mysqllink, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $data[] = $row;
+                    } 
+                    return $data[0]; }
+    else{ return false;} }
+    else { return false; } 
+
+}
+
+function getCustomerbyId($id){
+    if($id) {
+        $mysqllink = dbCon();
+            $sql = "SELECT a.sitename,b.* FROM jobs  a 
+        LEFT JOIN customers b ON a.`cidno` = b.`cidno` 
+        LEFT JOIN sites s ON a.`siteid` = s.`siteid`
+        LEFT JOIN jobnotes j ON a.`jobid` = j.joblink
+        LEFT JOIN invoices c ON a.`jobid` = c.`joblink` where a.cidno=$id limit 1";
+        $result = mysqli_query($mysqllink, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $data[] = $row;
+                    } 
+                    return $data[0]; }
+    else{ return false;} }
+    else { return false; } 
+
+}
+
 function viewJobsbyId($id)
 {
     $mysqllink = dbCon();
@@ -511,13 +549,13 @@ function get_client_ip()
 }
 
 function getInvoiceData($mnth,$year) {
-    $dayJob = cal_days_in_month(CAL_GREGORIAN,$mnth,$year);
-    $fdt = $year."-".$mnth."-01";
-    $ldt = $year."-".$mnth."-".$dayJob;
     $mysqllink = dbCon();
-    if( isset($fdt) && isset($ldt) ) { 
-        $sql="SELECT * FROM invoices WHERE DATE >='$fdt' AND DATE <= '$ldt'";
-         } else{
+    if( isset($mnth) && isset($year) ) {
+            $dayJob = cal_days_in_month(CAL_GREGORIAN,$mnth,$year);
+            $fdt = $year."-".$mnth."-01";
+            $ldt = $year."-".$mnth."-".$dayJob;
+            $sql="SELECT * FROM invoices WHERE date >='$fdt' AND date <= '$ldt'";
+            } else {
      $sql = "SELECT * FROM invoices";  }
      $result = mysqli_query($mysqllink, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -525,6 +563,21 @@ function getInvoiceData($mnth,$year) {
             $data[] = $row;
         } return $data; }
     else{ return false;}    
+}
+
+function getInvoicedatabyId($id){
+ $mysqllink = dbCon();
+    if($id){
+            $sql="SELECT * FROM invoices WHERE invno=$id";
+            $result = mysqli_query($mysqllink, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    $data[] = $row;
+                        } 
+                        return $data[0]; }
+
+    else{ return false;} }
+           else{ return false;}
 }
 
 function getInvoiceAmount($mnth,$year)
