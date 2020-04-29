@@ -1,7 +1,8 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Invoices</title>
@@ -14,36 +15,33 @@
     <link href="assets/css/customstyle.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
     <!--<link rel="stylesheet" type="text/css" href="assets/css/jquerydatatbl.css">-->
+	<style>
+     .table td, .table th {
+    padding: .75rem !important;
+    border-top: 1px solid #dee2e6 !important;
+}
+</style>
 </head>
 <body>
     <?php
     error_reporting(0);
-    session_start();
     include("functions.php");
-    if ($_SESSION['82j2ud2891166sid']) {
-        $username = $_SESSION['82j2ud2891166sdispname'];
-       if($_SESSION['resultbyidinvoicedata'] && $_GET['4a4f5sda4f5as7f8er5fds']=='f45454fsda4f') {
-           $invoiceData = $_SESSION['resultbyidinvoicedata'];
-           unset($_SESSION['resultbyidinvoicedata']);
-          }
-       else {
-           unset($_SESSION['resultbyidinvoicedata']);
-            $invoiceData = getInvoiceData(NULL,NULL);       
-          
-       }
-        $customerName = array_unique(array_column($invoiceData, 'cname'));
-        sort($customerName);
-       logmsg('#34 - Viewing invoice page.');
-    } else {
-        session_destroy();
-         logmsg('#37.invocie Invalid request');
-        header("location:adminlogin.php?loginerror=Invalid request.");
-
-        exit;
-
-    }
-
-    ?>
+    if( !$_SESSION['82j2ud2891166sid'] ) 
+        { 
+             header("location:adminlogin.php?loginerror=Invalid request.");
+             die(); 
+        }
+   if(isset($_GET['imonth']) && isset($_GET['iyear'])) {
+        $invoiceData = getInvoiceData(null,$_GET['imonth'],$_GET['iyear']);
+        $customerName = ddlCustomer();
+        $status = ddlInvoiceStatus();
+        }
+    elseif ( !isset($_GET['imonth']) && !isset($_GET['iyear'])) {
+        $invoiceData = getInvoiceData();
+        $customerName = ddlCustomer();
+        $status = ddlInvoiceStatus();
+        }
+            ?>
 
     <div class="common-layout is-default ">
 
@@ -114,8 +112,9 @@
                                                
                                                  <select id='column1_search' class='form-control'>
                                     <option value=''>All</option>
-                                    <?php foreach($customerName as $key=>$value){ ?>
-                                    <option value='<?php echo $value; ?>'><?php echo $value; ?></option>    
+                                    <?php for($i=0;$i<sizeof($customerName);$i++) { ?>
+                                    <option value="<?php echo $customerName[$i]['cname']; ?>">
+                                        <?php echo $customerName[$i]['cname']; ?></option>    
                                    <?php } ?>
                                 </select>
                                               </div>
@@ -186,7 +185,7 @@
                                     $jobid = $invoiceData[$i]['joblink']; ?>
                                 <tr>
                                      <td nowrap>
-                                        <a href="viewinvoice.php?invoiceid=<?php echo $invoiceId; ?>">
+                                        <a href="viewinvoice.php?id=<?php echo $invoiceId; ?>">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a></td>
                                     <td nowrap> <?php echo $invoiceId;?></td>
@@ -217,7 +216,7 @@
 <script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/material-bootstrap.min.js"></script>
 	<script src="assets/js/app.js"></script>
-	<script src="assets/js/custom.js"></script>
+	<!--<script src="assets/js/custom.js"></script>-->
 	<script src="assets/js/tagmanager.min.js"></script>  
 	<script src="assets/js/bootstrap3-typeahead.min.js"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>  
@@ -236,6 +235,7 @@
 			var table = $('#invoiceTable').dataTable({
 				 "bLengthChange": false,
                                 "bAutoWidth": false,
+                                 "bInfo": false,
 				'initComplete': function(){
 					var api = this.api();
 						api.cells('tr', [1]).every(function(){
@@ -264,19 +264,25 @@
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript">
         $(function(){
-            $('.custumdate').datepicker({
-                inline: true,
-                //nextText: '&rarr;',
-                //prevText: '&larr;',
-                showOtherMonths: true,
-                dateFormat: 'yy-mm-dd',
-                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                autoclose: true,
-                //showOn: "button",
-                //buttonImage: "img/calendar-blue.png",
-                //buttonImageOnly: true,
-            });
-        });
+             $('.custumdate').datepicker({
+                 inline: true,
+                 showOtherMonths: true,
+                 dateFormat: 'yy-mm-dd',
+                 dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                 onSelect: function(dateStr) {
+                  var startDate = $("#startdate").val();
+                  var endDate = $("#enddate").val();
+                  if ( (startDate.length > 0) && (endDate.length > 0)) {
+                  $.ajax({
+                      url: 'result.php',
+                      type: 'POST',
+                      data: { startdate: startDate, enddate: endDate},
+                      success: function(response) {
+                        //alert(response);
+                        $("#invoiceTable").empty();
+                        $("#invoiceTable").html(response);
+                                           }
+                  }); } } }); });
 
 
     </script>

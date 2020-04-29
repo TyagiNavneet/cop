@@ -5,6 +5,9 @@ body{
 	font-size : 14px;
 	font-family: 'Lato', sans-serif;
 }
+a{
+    color: #06b4d1;
+}
 .primary-bg {
 	background: #072c47;
 }
@@ -268,6 +271,76 @@ nav {
 .check-icon:before{
 	 background-position: -207px -12px; 
 }
+
+/********************* Form content ****************************/
+.form-content{
+	width: 100%;
+	border: 1px solid #CCC;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: .5em;
+    -webkit-box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    -moz-box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-image: linear-gradient(to bottom right, #FFF, #F3F3F3);
+}
+.top-bar button {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+.custom-tab .tab-content{
+    border: 1px solid #CCC;
+    margin-bottom: 1em;
+    padding: .5em;
+    -webkit-box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    -moz-box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    box-shadow: 1px 0px 5px 0px rgba(225,225,225,1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-image: linear-gradient(to bottom right, #FFF, #F3F3F3);
+}
+.custom-tab li a:hover{
+  text-decoration: none !important	;
+  
+	border-color: #dee2e6 #dee2e6 #dee2e6;
+}
+.custom-tab h4.tab-title{
+	font-size: 20px;
+	font-weight: normal;
+	padding: 1rem 0;
+}
+
+.custom-tab li a.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.custom-tab  li a {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    margin-bottom: -1px;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+.custom-tab .lavalamp-object {
+	display: none;
+}
+.custom-tab table tr th{
+	vertical-align: middle;
+}
+.page-item.active .page-link{
+        background-color: #06b4d1;
+}
+/*********************************** Form content ******************************/
 footer{
 	background: #fff;
 	padding: 15px;
@@ -373,7 +446,7 @@ button:not([disabled]) {cursor: pointer;}
 
 	  	/* DatePicker Container */
 .ui-datepicker {
-	width: 216px;
+	width: 290px;
 	height: auto;
 	margin: 5px auto 0;
 	font: 9pt Arial, sans-serif;
@@ -388,23 +461,15 @@ button:not([disabled]) {cursor: pointer;}
 .ui-datepicker table {
 	width: 100%;
 }
-.ui-datepicker-header {
-	background: url('../img/dark_leather.png') repeat 0 0 #000;
-	color: #e0e0e0;
-	font-weight: bold;
-	-webkit-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, 2);
-	-moz-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
-	box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
-	text-shadow: 1px -1px 0px #000;
-	filter: dropshadow(color=#000, offx=1, offy=-1);
-	line-height: 30px;
-	border-width: 1px 0 0 0;
-	border-style: solid;
-	border-color: #111;
+.ui-datepicker .ui-datepicker-header {
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #666;
+    border: none;
+    background-color: #fff;
+    padding: 5px;
 }
-.ui-datepicker-title {
-	text-align: center;
-}
+
 .ui-datepicker-prev, .ui-datepicker-next {
 	display: inline-block;
 	width: 30px;
@@ -437,21 +502,29 @@ button:not([disabled]) {cursor: pointer;}
 }
 .ui-datepicker th {
 	text-transform: uppercase;
-	font-size: 6pt;
+	font-size: 10px;
 	padding: 5px 0;
 	color: #666666;
-	text-shadow: 1px 0px 0px #fff;
-	filter: dropshadow(color=#fff, offx=1, offy=0);
+	background-color: #fff;
 }
 .ui-datepicker tbody td {
 	padding: 0;
-	border-right: 1px solid #bbb;
 }
 .ui-datepicker tbody td:last-child {
 	border-right: 0px;
 }
-.ui-datepicker tbody tr {
-	border-bottom: 1px solid #bbb;
+.ui-datepicker tbody td a{
+    border-radius: 50%;
+    font-size: 12px;
+    width: 36px;
+    height: 36px;
+    line-height: 33px;
+    margin: 2px;
+    text-align:center;
+} 
+.ui-datepicker tbody td a:hover{
+    background-color:#ccf2eb;
+    color:#333;
 }
 .ui-datepicker tbody tr:last-child {
 	border-bottom: 0px;
@@ -515,11 +588,9 @@ button:not([disabled]) {cursor: pointer;}
 background-color: #fff;
 }
 
-.ui-datepicker-header {background-color: #06b4d1;}
 
-.ui-datepicker-title {
-color: white;
-}
+
+
 
 .ui-widget-content .ui-state-default {
 border: 0px;
@@ -529,17 +600,11 @@ font-weight: normal;
 color: #000;
 }
 
-.ui-widget-content .ui-state-default:hover {
-border: 0px;
-text-align: center;
-background: #000;
-font-weight: normal;
-color: #fff;
-}
+
 
 .ui-widget-content .ui-state-active {
 border: 0px;
-background: #616eff;
+background: #06b4d1;
 color: #fff;
 }
 

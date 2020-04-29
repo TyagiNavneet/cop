@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,32 +8,11 @@
 	<title>Dashboard</title>
 	<!-- Styles -->
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-	<link href="assets/css/font1.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
-	<link href="assets/css/material-bootstrap.min.css" rel="stylesheet">
-	<link href="assets/css/customstyle.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/jquerydatatbl.css">
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
-
+    <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
+    <link href="assets/css/material-bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/customstyle.css" rel="stylesheet">	
 </head>
-<body>
-	<?php
-        error_reporting(0);
-	session_start();
-	include("functions.php");
-	if ($_SESSION['82j2ud2891166sid']) {
-		$username = $_SESSION['82j2ud2891166sdispname'];
-		$jobs = getDashbordData(NULL,NULL);
-                $c = sizeof($jobs);
-	} else {
-		session_destroy();
-		logmsg('#33 welcome - Invalid request');
-		header("location:adminlogin.php?loginerror=Invalid request.");
-		exit;
-	}
-	?>
+<body>	
 <div class="common-layout is-default ">
     <div id="sidebar" class="sidenav sidenav-fixed expand-md">
 	<div class="sidenav-header primary-bg nav-logo">
@@ -41,10 +21,12 @@
 	</div>
 	<ul class="collapsible collapsible-accordion sidbar-navbar">
             <li class="active"><a href="adminwelcome.php">Dashboard</a></li>
-	    <li><a href="jobs.php?j=1">Jobs</a></li>
+	    <li><a href="jobs.php">Jobs</a></li>
 	    <li><a href="invoice.php">Invoices</a></li>
 	</ul>
 		</div>
+
+        
 		<div class="content">
 			<nav class="navbar navbar-expand">
 				<a class="navbar-icon waves-effect waves-light mr-3 d-md-none" data-toggle="sidebar" data-target="#sidebar" href="javascript:;"><i class="fa fa-bars" aria-hidden="true"></i></a>
@@ -52,7 +34,7 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<div class="ml-auto">
 						<a class="welcome" href="javascript:;">
-							Welcome! <?php echo $username; ?> <i class="fa fa-user" aria-hidden="true"></i>
+							Welcome! <?php echo $user = isset($_SESSION['82j2ud2891166sdispname']) ? $_SESSION['82j2ud2891166sdispname'] : 'User'; ?> <i class="fa fa-user" aria-hidden="true"></i>
 						</a>
 						<a class="navbar-icon waves-effect waves-light" href="logout.php">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -60,6 +42,28 @@
 					</div>
 				</div>
 			</nav>
+            <?php 
+        error_reporting(0);
+        session_start();
+        include("functions.php");
+        
+        if( !$_SESSION['82j2ud2891166sid'] ) 
+        { 
+             header("location:adminlogin.php?loginerror=Invalid request.");
+             die(); 
+        }
+
+        else {
+            $month = date("m");
+            $year = date("Y");
+            $jobs = getJobsData(null,$month,$year);
+            $invoices = getInvoiceData(null,$month,$year);
+            $CompleteJob  =  getJobsData(null,$month,$year,1);
+            $invoiceAmount  =  getInvoiceData(null,$month,$year,'amount');
+            }
+
+        
+        ?>
 			<div class="flud-container mt-5">
 				<div class="content-wrapper">
 					<div class="row">
@@ -94,12 +98,12 @@
                                         <h2 class="font-weight-bold mb-3 " >
                                             <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                                         </h2>
-                                        <button type="button" class="h2 btn-link font-weight-bold mb-5 widgetLink jobsWidgetBtn" onclick="window.location = 'jobs.php?j=2';">
+                                        <button type="button" class="h2 btn-link font-weight-bold mb-5 widgetLink jobsWidgetBtn" onclick="sendJobStr();">
                                                 <?php echo "Jobs : "; ?>
-                                            <span id="totaljobscount"><?php echo $c; ?></span>
+                                            <span id="totaljobscount"><?php echo sizeof($jobs); ?></span>
                                         </button>
                                         <h5 class="card-text">
-                                            <?php echo "Completed Jobs : "; ?><span id="completedjobs"><?php echo getJobStatus('1', NULL, NULL); ?></span> </h5>
+                                            <?php echo "Completed Jobs : "; ?><span id="completedjobs"><?php echo sizeof($CompleteJob); ?></span> </h5>
 </div>
 							</div>
 						</div>
@@ -136,13 +140,27 @@
                                         <h2 class="font-weight-bold mb-3 " >
                                             <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                                         </h2>
-                                        <h2 class="font-weight-bold mb-5 widgetLink" style="cursor: pointer;" 
-                                            onclick="window.location = 'invoice.php?4a4f5sda4f5as7f8er5fds=f45454fsda4f';">
+                                        
+
+                                        <!--<h2 class="font-weight-bold mb-5 widgetLink invoiceWidgetBtn" style="cursor: pointer;" 
+                                            onclick="sendInvoiceStr();">
                                                 <?php echo "Invoices : "; ?>
-                                            <span id="invoiceCount"><?php echo getCount('invoices'); ?></span>
-                                        </h2>
+                                            <span id="invoiceCount"><?php echo sizeof($invoices); ?></span>
+                                        </h2> -->
+
+
+                                        <button type="button" class="h2 btn-link font-weight-bold mb-5 widgetLink invoiceWidgetBtn" onclick="sendInvoiceStr();">
+                                                <?php echo "Invoices : "; ?>
+                                            <span id="invoiceCount"><?php echo sizeof($invoices); ?></span>
+                                        </button>
+
+
+
+
+
                                         <h5 class="card-text">
-                                            <?php echo "Invoice amount "; ?><span id="invoiceamount"><?php echo "£".getInvoiceTotal(); ?></span> </h5>
+                                            <?php echo "Invoice amount "; ?><span id="invoiceamount">
+                                            <?php echo $amount = isset($invoiceAmount[0]['totalAmount']) ? "£".$invoiceAmount[0]['totalAmount'] : '0'; ?></span> </h5>
 							</div>
 						</div>
 					</div>
@@ -159,12 +177,7 @@
 	<script src="assets/js/custom.js"></script>
 	<script src="assets/js/tagmanager.min.js"></script>  
 	<script src="assets/js/bootstrap3-typeahead.min.js"></script>
-	<script src="assets/js/jquery.dataTables.min.js"></script>  
-	<script src="assets/js/dataTables.bootstrap4.min.js"></script>  
-	<script src="assets/js/pushbar.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript">
             $('.selectjob').change(function () {
                 var jm = $("#jmonth").val();
@@ -176,8 +189,7 @@
                     success: function (result) {
                         var parsedResponse = $.parseJSON(result);
                         $("#totaljobscount").html(parsedResponse.totalJobs);
-                        //console.log('total jobs : ' + parsedResponse.totalJobs);
-                        
+                                                
                         if(parsedResponse.totalJobs==0){
                             $('.jobsWidgetBtn').attr('disabled', 'disabled');
                         }
@@ -201,18 +213,30 @@
                     success: function (result) {
                         var parsedResponse = $.parseJSON(result);
                         $("#invoiceCount").html(parsedResponse.invoiceCount);
+                        if(parsedResponse.invoiceCount==0){
+                            $('.invoiceWidgetBtn').attr('disabled', 'disabled');
+                        }
+                        else {
+
+                            $('.invoiceWidgetBtn').removeAttr('disabled');
+                        }
                         $("#invoiceamount").html(parsedResponse.invoiceAmount);
                                                                                         
                 }});
             });
-        
 
-        /*$('#totaljobscount').on('DOMSubtreeModified', function () {
-            var sp = document.getElementById('totaljobscount').innerHTML;
-            if (sp === '0 record') {
-                $(".widgetLink").removeAttr("onclick");
-            }
-        });*/
+// Function for pass dropdown month and year to another page //
+        function sendJobStr(){
+            var jbmonth = document.getElementById('jmonth').value;
+            var jbyear  = document.getElementById('jyear').value;
+            window.location = 'jobs.php?jmonth='+jbmonth+'&jyear='+jbyear;   
+        }
+
+        function sendInvoiceStr(){
+            var imonth = document.getElementById('imonth').value;
+            var iyear  = document.getElementById('iyear').value;
+            window.location = 'invoice.php?imonth='+imonth+'&iyear='+iyear;   
+        }
     </script>
 </body>
 </html>

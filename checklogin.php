@@ -30,6 +30,7 @@ if ($userdata) {
 		unset($_SESSION["82j2ud2891166sdtwho"]);
 		unset($_SESSION["82j2ud2891166slogin_attempts"]);
 		unset($_SESSION["82j2ud2891166slast_login"]);
+		unset($_SESSION['crdate']);
 	}
 	if ($row['active'] == '1' && trim($row['usertype']) === 'MANAGER') {
 		$sessionID = session_id();
@@ -55,6 +56,7 @@ if ($userdata) {
 		$_SESSION["82j2ud2891166slogin_attempts"] = $row['login_attempts'];
 		$_SESSION["82j2ud2891166slast_login"] = $row['last_login'];
 		$_SESSION['82j2ud2891166sUT'] = trim($row['usertype']);
+		$_SESSION['cd'] = date('Y-m-01');
 		$_SESSION['82j2ud2891166scurhp'] = "adminwelcome.php";
 		if (!empty($myidpass)) {
 			header("location:adminwelcome.php");
